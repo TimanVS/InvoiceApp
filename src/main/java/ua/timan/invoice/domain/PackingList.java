@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class PackingList {
 
-	private String id;
+	private int id;
 	private LocalDate issueDate;
 	private Provider provider;
 	private Storage store;

@@ -7,20 +7,21 @@ import java.util.List;
 
 import lombok.NoArgsConstructor;
 import ua.timan.invoice.domain.PackingList;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @NoArgsConstructor(access = PRIVATE)
 public final class TestDataFactory {
 
-    public static PackingList createPackingList() {
+	static PodamFactory factory = new PodamFactoryImpl();
 
-    };
+	public static PackingList createPackingList() {
+		PackingList myPojo = factory.manufacturePojo(PackingList.class);
+		return myPojo;
+	};
 
-    public static PackingList createOtherPackingList() {
-
-    };
-
-    public static List<PackingList> createPackingLists() {
-        return Arrays.asList(createPackingList(), createOtherPackingList());
-    };
+	public static List<PackingList> createPackingLists() {
+		return Arrays.asList(createPackingList(), createPackingList());
+	};
 
 }

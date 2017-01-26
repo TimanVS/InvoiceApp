@@ -27,7 +27,7 @@ public class PackingListService {
     public void delete(String id) {
 
     }
-
+/*
     public PackingList update(PackingList arg0) {
         PackingList value = get(arg0.getId());
 
@@ -35,5 +35,5 @@ public class PackingListService {
 
         return save(value);
     }
-
+*/
 }
