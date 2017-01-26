@@ -7,15 +7,15 @@ import ua.timan.invoice.domain.PackingList;
 public class PackingListService {
 
     public PackingList create(PackingList arg0) {
-        //TODO: 1. add unique id
+        // TODO: 1. add unique id
         return save(arg0);
     }
-    
+
     public PackingList save(PackingList arg0) {
-        //TODO: store to DB
+        // TODO: store to DB
         return arg0;
     }
-    
+
     public PackingList get(String id) {
         return null;
     }
@@ -23,18 +23,17 @@ public class PackingListService {
     public List<PackingList> getAll(long offset, long size, boolean asc) {
         return null;
     }
-    
-    public void delete(String id){
-        
+
+    public void delete(String id) {
+
     }
-    
-    public PackingList update (PackingList arg0) {
+
+    public PackingList update(PackingList arg0) {
         PackingList value = get(arg0.getId());
-        
-        
-        //TODO: Update fields except id with values from arg0.
+
+        // TODO: Update fields except id with values from arg0.
 
         return save(value);
     }
-    
+
 }
