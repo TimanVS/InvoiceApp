@@ -1,11 +1,18 @@
 package ua.timan.invoice.domain;
 
+import org.springframework.data.annotation.Id;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Storage {
 
-	private int id;
-	private String name;
+    @Id
+    private int id;
+    private String name;
 
 }
