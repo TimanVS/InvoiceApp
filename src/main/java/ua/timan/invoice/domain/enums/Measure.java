@@ -1,4 +1,4 @@
-package ua.timan.invoice.enums;
+package ua.timan.invoice.domain.enums;
 
 public enum Measure {
 	
