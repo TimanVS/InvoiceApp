@@ -2,11 +2,12 @@ package ua.timan.invoice.test;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.NoArgsConstructor;
 import ua.timan.invoice.domain.PackingList;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -18,6 +19,10 @@ public final class TestDataFactory {
     public static final ObjectMapper MAPPER = new ObjectMapper();
 
     static PodamFactory factory = new PodamFactoryImpl();
+    
+    public static InputStream getResource(String fileName) throws IOException {
+		return TestDataFactory.class.getClassLoader().getResource(fileName).openStream();
+	}
 
     public static PackingList createPackingList() {
         PackingList myPojo = factory.manufacturePojo(PackingList.class);

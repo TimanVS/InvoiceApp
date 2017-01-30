@@ -16,14 +16,27 @@
 
 package ua.timan.web_static.ui;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean;
+
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
 @EnableAutoConfiguration
+@ComponentScan
 public class SampleWebStaticApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws Exception {
@@ -33,6 +46,16 @@ public class SampleWebStaticApplication extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SampleWebStaticApplication.class);
+	}
+	
+	@Bean
+	public FactoryBean<ObjectMapper> objectMapper() {
+		Jackson2ObjectMapperFactoryBean factory = new Jackson2ObjectMapperFactoryBean();
+		List<Module> modules = new ArrayList<Module>();
+		modules.add(new JavaTimeModule());
+		factory.setModules(modules);
+		factory.setDateFormat(new SimpleDateFormat("dd-MM-yyyy"));
+		return factory;
 	}
 
 }
