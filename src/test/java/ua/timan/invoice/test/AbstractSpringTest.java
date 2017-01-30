@@ -6,6 +6,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration(classes = SpringApplicationContext.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AbstractSpringTest {
+public abstract class AbstractSpringTest {
 
 }
