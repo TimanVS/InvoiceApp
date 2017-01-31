@@ -1,13 +1,16 @@
 package ua.timan.invoice.test;
 
+import static java.util.Arrays.asList;
 import static lombok.AccessLevel.PRIVATE;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+
 import lombok.NoArgsConstructor;
 import ua.timan.invoice.domain.PackingList;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -18,19 +21,28 @@ public final class TestDataFactory {
 
     public static final ObjectMapper MAPPER = new ObjectMapper();
 
-    static PodamFactory factory = new PodamFactoryImpl();
-    
+    public static final String FIXTURES_PATH = "fixtures" + File.separator;
+
+    static {
+        MAPPER.registerModule(new JSR310Module());
+    }
+
+    private static final PodamFactory PODAM_FACTORY = new PodamFactoryImpl();
+
     public static InputStream getResource(String fileName) throws IOException {
-		return TestDataFactory.class.getClassLoader().getResource(fileName).openStream();
-	}
+        return TestDataFactory.class.getClassLoader().getResourceAsStream(fileName);
+    }
+
+    public static InputStream getFixture(String fileName) throws IOException {
+        return getResource(FIXTURES_PATH + fileName);
+    }
 
     public static PackingList createPackingList() {
-        PackingList myPojo = factory.manufacturePojo(PackingList.class);
-        return myPojo;
+        return PODAM_FACTORY.manufacturePojo(PackingList.class);
     };
 
     public static List<PackingList> createPackingLists() {
-        return Arrays.asList(createPackingList(), createPackingList());
+        return asList(createPackingList(), createPackingList());
     };
 
 }
