@@ -2,6 +2,7 @@ package ua.timan.invoice.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +14,12 @@ import ua.timan.invoice.domain.enums.Measure;
 @AllArgsConstructor
 @Entity
 public class Product {
-	
-	@Id
-	private int id;
-	private String name;
-	private ProductGroup group;
-	private Measure measure;
+
+    @Id
+    private int id;
+    private String name;
+    @ManyToOne
+    private ProductGroup group;
+    private Measure measure;
 
 }

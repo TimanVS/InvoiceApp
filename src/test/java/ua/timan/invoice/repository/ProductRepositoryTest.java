@@ -29,7 +29,6 @@ public class ProductRepositoryTest extends AbstractSpringTest {
 		groupRepository.save(groupEntity);
 		ProductGroup result = groupRepository.findOne(IDGROUP);
 		assertEquals(groupEntity, result);
-
 	}
 
 }
