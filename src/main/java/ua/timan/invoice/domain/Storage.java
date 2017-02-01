@@ -1,7 +1,6 @@
 package ua.timan.invoice.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +13,10 @@ import lombok.NoArgsConstructor;
 public class Storage {
 
 	@Id
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "Storage", nullable = false)
 	private String name;
 
 }

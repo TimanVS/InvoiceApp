@@ -6,27 +6,27 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ua.timan.invoice.domain.Storage;
+import ua.timan.invoice.domain.Provider;
 import ua.timan.invoice.test.AbstractSpringTest;
 
-public class StorageRepositoryTest extends AbstractSpringTest {
-
+public class ProviderRepositoryTest extends AbstractSpringTest {
+	
 	public static final int ID = 1;
 
-	private Storage entity;
+	private Provider entity;
 
 	@Autowired
-	private StorageRepository repository;
+	private ProviderRepository repository;
 
 	@Before
 	public void setUp() {
-		entity = new Storage(ID, "Мой магазин");
+		entity = new Provider(ID, "ЛКО");
 	}
 
 	@Test
-	public void shouldSaveAndGetStorageEntity() {
+	public void shouldSaveAndGetProviderEntity() {
 		repository.save(entity);
-		Storage result = repository.findOne(ID);
+		Provider result = repository.findOne(ID);
 		assertEquals(entity, result);
 
 	}
