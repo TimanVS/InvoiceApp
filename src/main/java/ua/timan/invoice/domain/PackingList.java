@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -17,15 +18,15 @@ import lombok.NoArgsConstructor;
 @Entity
 public class PackingList {
 
-	@Id
-	private int id;
-	private LocalDate issueDate;
-	@ManyToOne
-	private Provider provider;
-	@ManyToOne
-	private Storage store;
-	@ManyToOne(targetEntity = PackingItem.class)
-	private List<PackingItem> items;
-	private String comment;
+    @Id
+    private int id;
+    private LocalDate issueDate;
+    @ManyToOne
+    private Provider provider;
+    @ManyToOne
+    private Storage store;
+    @ManyToMany
+    private List<PackingItem> items;
+    private String comment;
 
 }

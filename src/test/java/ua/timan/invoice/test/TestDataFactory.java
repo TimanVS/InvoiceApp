@@ -13,6 +13,7 @@ import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
 import lombok.NoArgsConstructor;
 import ua.timan.invoice.domain.PackingList;
+import ua.timan.invoice.domain.Storage;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -44,5 +45,13 @@ public final class TestDataFactory {
     public static List<PackingList> createPackingLists() {
         return asList(createPackingList(), createPackingList());
     };
+
+    public static List<Storage> createStorages() {
+        return null;
+    }
+
+    public static Storage createStorage() {
+        return createStorages().get(0);
+    }
 
 }

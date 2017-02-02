@@ -1,6 +1,5 @@
 package ua.timan.invoice.domain;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +15,7 @@ public class ProductGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false)
     private String name;
 
 }

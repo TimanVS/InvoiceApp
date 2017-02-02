@@ -13,10 +13,9 @@ import lombok.NoArgsConstructor;
 public class Storage {
 
 	@Id
-	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "Storage", nullable = false)
+	@Column(nullable = false)
 	private String name;
 
 }

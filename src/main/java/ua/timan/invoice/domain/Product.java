@@ -1,5 +1,6 @@
 package ua.timan.invoice.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,6 +18,7 @@ public class Product {
 
     @Id
     private int id;
+    @Column(nullable = false)
     private String name;
     @ManyToOne
     private ProductGroup group;

@@ -13,9 +13,8 @@ import javax.persistence.*;
 public class Provider {
 	
 	@Id
-	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "Provider", nullable = false)
+	@Column(nullable = false)
 	private String name;
 }

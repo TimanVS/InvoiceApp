@@ -1,12 +1,14 @@
 package ua.timan.invoice.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ua.timan.invoice.domain.enums.Measure;
 
 @Data
 @NoArgsConstructor
@@ -14,13 +16,13 @@ import ua.timan.invoice.domain.enums.Measure;
 @Entity
 public class PackingItem {
 
-	@Id
-	private int id;
-	private int barcode;
-	private String name;
-	private Measure measure;
-	private int quantity;
-	private float price;
-	private float sum;
+    @Id
+    private int id;
+    private String barcode;
+    @ManyToOne
+    private Product product;
+    private BigDecimal quantity;
+    private BigDecimal price;
+    private BigDecimal sum;
 
 }
