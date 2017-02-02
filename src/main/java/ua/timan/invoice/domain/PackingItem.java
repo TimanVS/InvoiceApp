@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ua.timan.invoice.domain.enums.Measure;
 
 @Data
 @NoArgsConstructor
@@ -17,8 +18,8 @@ public class PackingItem {
 	private int id;
 	private int barcode;
 	private String name;
-	private String measure;
-	private long quantity;
+	private Measure measure;
+	private int quantity;
 	private float price;
 	private float sum;
 

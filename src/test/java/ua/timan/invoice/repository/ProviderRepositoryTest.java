@@ -19,7 +19,7 @@ public class ProviderRepositoryTest extends AbstractSpringTest {
 	private ProviderRepository repository;
 
 	@Before
-	public void setUp() {
+	public void setUpProvider() {
 		entity = new Provider(ID, "ЛКО");
 	}
 
