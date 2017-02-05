@@ -1,0 +1,21 @@
+{
+  "items": [
+		{
+			"id": 1,
+			"barcode": 1516,
+			"name": "Пиво Черниговское 0,5л",
+			"measure": "7bUF7uQMZQ",
+			"quantity": 78013655648147,
+			"price": 0.4210257,
+			"sum": 0.5728068
+		},
+		{
+			"id": 690495294,
+			"barcode": -1679217250,
+			"name": "XBPHMRbHOp",
+			"measure": "ofWWGvzUp0",
+			"quantity": 78013657846580,
+			"price": 0.38517952,
+			"sum": 0.47460717
+		}
+}

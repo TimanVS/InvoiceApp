@@ -11,31 +11,30 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
-import ua.timan.invoice.domain.Storage;
+import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.test.AbstractSpringTest;
 
 @Slf4j
-public class StorageRepositoryTest extends AbstractSpringTest {
+public class ProductGroupRepositoryTest extends AbstractSpringTest {
 
-	public static final int ID = 1;
+	public static final int IDGROUP = 1;
 
-	private Storage entity;
+	private ProductGroup groupEntity;
 
 	@Autowired
-	private StorageRepository repository;
+	private ProductGroupRepository groupRepository;
 
 	@Before
 	public void setUp() throws IOException {
-		entity = (Storage) MAPPER.readValue(getFixture("Storage.json"), Storage.class);
+		groupEntity = (ProductGroup) MAPPER.readValue(getFixture("ProductGroup.json"), ProductGroup.class);
 	}
 
 	@Test
-	public void shouldSaveAndGetStorageEntity() {
-		repository.save(entity);
-		Storage result = repository.findOne(ID);
-		assertEquals(entity, result);
+	public void shouldSaveAndGetProductGroupEntity() {
+		groupRepository.save(groupEntity);
+		ProductGroup result = groupRepository.findOne(IDGROUP);
+		assertEquals(groupEntity, result);
 		log.info(result.toString());
-
 	}
 
 }

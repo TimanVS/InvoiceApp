@@ -1,7 +1,6 @@
 package ua.timan.invoice.domain;
 
 import static org.junit.Assert.assertNotNull;
-import static ua.timan.invoice.test.TestDataFactory.MAPPER;
 
 import java.io.IOException;
 
@@ -21,12 +20,11 @@ import ua.timan.web_static.ui.SampleWebStaticApplication;
 @SpringApplicationConfiguration(classes = SampleWebStaticApplication.class)
 @Slf4j
 public class PackingListJsonTest {
-
+	/*
 	@Test
 	public void shouldConvertPackingListToJson() throws JsonProcessingException {
 		String json = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(createPackingList());
 		log.info(json);
-
 	}
 
 	@Test
@@ -35,4 +33,12 @@ public class PackingListJsonTest {
 		log.info(result.toString());
 		assertNotNull(result);
 	}
+	*/
+	@Test
+	public void shouldDeserializeStorage() throws IOException {
+		ProductGroup result = (ProductGroup) MAPPER.readValue(getFixture("ProductGroup.json"), ProductGroup.class);
+		log.info(result.toString());
+		assertNotNull(result);
+	}
+
 }

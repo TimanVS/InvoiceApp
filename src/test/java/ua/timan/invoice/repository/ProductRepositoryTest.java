@@ -17,8 +17,8 @@ import ua.timan.invoice.test.AbstractSpringTest;
 
 public class ProductRepositoryTest extends AbstractSpringTest {
 
-    public static final int IDGROUP = 1;
     public static final int IDPRODUCT = 1;
+    
 
     public static final BigDecimal PRICE = BigDecimal.valueOf(10.5).setScale(2, RoundingMode.HALF_UP);
 
@@ -35,17 +35,12 @@ public class ProductRepositoryTest extends AbstractSpringTest {
 
     @Before
     public void setUp() {
-        groupEntity = new ProductGroup(IDGROUP, "Табачные изделия");
+        groupEntity = new ProductGroup(1, "Табачные изделия");
         productEntity = new Product(IDPRODUCT, "Сигареты Парламент", groupEntity, Measure.PIECE);
         piEntity = new PackingItem(1, "", productEntity, BigDecimal.ONE, PRICE, PRICE);
     }
 
-    @Test
-    public void shouldSaveAndGetProductGroupEntity() {
-        groupRepository.save(groupEntity);
-        ProductGroup result = groupRepository.findOne(IDGROUP);
-        assertEquals(groupEntity, result);
-    }
+    
 
     @Test
     public void shouldSaveAndGetProductEntity() {
