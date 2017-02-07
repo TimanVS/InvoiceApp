@@ -3,9 +3,11 @@ package ua.timan.invoice.test;
 import static java.util.Arrays.asList;
 import static lombok.AccessLevel.PRIVATE;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Random;
 
@@ -29,6 +31,8 @@ public final class TestDataFactory {
 
     public static final String FIXTURES_PATH = "fixtures" + File.separator;
 
+    public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+
     static {
         MAPPER.registerModule(new JSR310Module());
     }
@@ -39,9 +43,27 @@ public final class TestDataFactory {
         return TestDataFactory.class.getClassLoader().getResourceAsStream(fileName);
     }
 
-    // TODO вычитывать и возвращать строку
-    public static InputStream getFixture(String fileName) throws IOException {
-        return getResourceAsStream(FIXTURES_PATH + fileName);
+    public static byte[] getResourceAsBytes(String fileName) throws IOException {
+        try (InputStream in = getResourceAsStream(fileName); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = in.read(buffer)) != -1) {
+                out.write(buffer, 0, length);
+            }
+            return out.toByteArray();
+        }
+    }
+
+    public static String getResourceAsString(String fileName, Charset charset) throws IOException {
+        return new String(getResourceAsBytes(fileName), charset);
+    }
+
+    public static String getResourceAsString(String fileName) throws IOException {
+        return getResourceAsString(fileName, DEFAULT_CHARSET);
+    }
+
+    public static String getFixture(String fileName) throws IOException {
+        return getResourceAsString(FIXTURES_PATH + fileName);
     }
 
     public static PackingList createPackingList() {
@@ -53,9 +75,8 @@ public final class TestDataFactory {
     };
 
     public static List<Storage> createStorages() throws IOException {
-        try (InputStream in = getFixture("Storages.json")) {
-            return MAPPER.readValue(in, CollectionType.construct(List.class, SimpleType.construct(Storage.class)));
-        }
+        return MAPPER.readValue(getFixture("Storages.json"),
+                CollectionType.construct(List.class, SimpleType.construct(Storage.class)));
     }
 
     public static Storage createStorage() throws IOException {
@@ -63,9 +84,8 @@ public final class TestDataFactory {
     }
 
     public static List<ProductGroup> createProductGroups() throws IOException {
-        try (InputStream in = getFixture("ProductGroups.json")) {
-            return MAPPER.readValue(in, CollectionType.construct(List.class, SimpleType.construct(ProductGroup.class)));
-        }
+        return MAPPER.readValue(getFixture("ProductGroups.json"),
+                CollectionType.construct(List.class, SimpleType.construct(ProductGroup.class)));
     }
 
     public static ProductGroup createProductGroup() throws IOException {
@@ -73,9 +93,8 @@ public final class TestDataFactory {
     }
 
     public static List<Provider> createProviders() throws IOException {
-        try (InputStream in = getFixture("Providers.json")) {
-            return MAPPER.readValue(in, CollectionType.construct(List.class, SimpleType.construct(Provider.class)));
-        }
+        return MAPPER.readValue(getFixture("Providers.json"),
+                CollectionType.construct(List.class, SimpleType.construct(Provider.class)));
     }
 
     public static Provider createProvider() throws IOException {

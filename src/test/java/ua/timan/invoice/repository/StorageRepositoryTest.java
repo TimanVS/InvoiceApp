@@ -14,10 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.domain.Storage;
-import ua.timan.invoice.test.AbstractSpringTest;
 
 @Slf4j
-public class StorageRepositoryTest extends AbstractSpringTest {
+public class StorageRepositoryTest extends AbstractRepositoryTest {
 
     private Storage entity;
 

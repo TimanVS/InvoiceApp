@@ -13,12 +13,10 @@ import ua.timan.invoice.domain.PackingItem;
 import ua.timan.invoice.domain.Product;
 import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.domain.enums.Measure;
-import ua.timan.invoice.test.AbstractSpringTest;
 
-public class ProductRepositoryTest extends AbstractSpringTest {
+public class ProductRepositoryTest extends AbstractRepositoryTest {
 
     public static final int IDPRODUCT = 1;
-    
 
     public static final BigDecimal PRICE = BigDecimal.valueOf(10.5).setScale(2, RoundingMode.HALF_UP);
 
@@ -39,8 +37,6 @@ public class ProductRepositoryTest extends AbstractSpringTest {
         productEntity = new Product(IDPRODUCT, "Сигареты Парламент", groupEntity, Measure.PIECE);
         piEntity = new PackingItem(1, "", productEntity, BigDecimal.ONE, PRICE, PRICE);
     }
-
-    
 
     @Test
     public void shouldSaveAndGetProductEntity() {

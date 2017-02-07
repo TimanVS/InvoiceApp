@@ -14,10 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.domain.ProductGroup;
-import ua.timan.invoice.test.AbstractSpringTest;
 
 @Slf4j
-public class ProductGroupRepositoryTest extends AbstractSpringTest {
+public class ProductGroupRepositoryTest extends AbstractRepositoryTest {
 
     public static final int IDGROUP = 1;
 

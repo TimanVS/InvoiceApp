@@ -14,10 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.domain.Provider;
-import ua.timan.invoice.test.AbstractSpringTest;
 
 @Slf4j
-public class ProviderRepositoryTest extends AbstractSpringTest {
+public class ProviderRepositoryTest extends AbstractRepositoryTest {
 
     public static final int ID = 1;
 
