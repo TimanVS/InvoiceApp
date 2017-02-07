@@ -59,14 +59,9 @@ public final class TestDataFactory {
     }
 
     public static Storage createStorage() throws IOException {
-        List<Storage> storages = createStorages();
-        return storages.get(new Random().nextInt(storages.size()));
+        return getRandomItem(createStorages());
     }
-    
-    /**
-     * Парсинг ProductGroups.json
-     */
-    
+
     public static List<ProductGroup> createProductGroups() throws IOException {
         try (InputStream in = getFixture("ProductGroups.json")) {
             return MAPPER.readValue(in, CollectionType.construct(List.class, SimpleType.construct(ProductGroup.class)));
@@ -74,14 +69,9 @@ public final class TestDataFactory {
     }
 
     public static ProductGroup createProductGroup() throws IOException {
-        List<ProductGroup> groups = createProductGroups();
-        return groups.get(new Random().nextInt(groups.size()));
+        return getRandomItem(createProductGroups());
     }
-    
-    /**
-     * Парсинг Providers.json
-     */
-    
+
     public static List<Provider> createProviders() throws IOException {
         try (InputStream in = getFixture("Providers.json")) {
             return MAPPER.readValue(in, CollectionType.construct(List.class, SimpleType.construct(Provider.class)));
@@ -89,7 +79,10 @@ public final class TestDataFactory {
     }
 
     public static Provider createProvider() throws IOException {
-        List<Provider> providers = createProviders();
-        return providers.get(new Random().nextInt(providers.size()));
+        return getRandomItem(createProviders());
+    }
+
+    private static <T> T getRandomItem(List<T> list) {
+        return list.get(new Random().nextInt(list.size()));
     }
 }
