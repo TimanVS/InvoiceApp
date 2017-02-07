@@ -33,12 +33,13 @@ public final class TestDataFactory {
 
     private static final PodamFactory PODAM_FACTORY = new PodamFactoryImpl();
 
-    public static InputStream getResource(String fileName) throws IOException {
+    public static InputStream getResourceAsStream(String fileName) throws IOException {
         return TestDataFactory.class.getClassLoader().getResourceAsStream(fileName);
     }
 
+    // TODO вычитывать и возвращать строку
     public static InputStream getFixture(String fileName) throws IOException {
-        return getResource(FIXTURES_PATH + fileName);
+        return getResourceAsStream(FIXTURES_PATH + fileName);
     }
 
     public static PackingList createPackingList() {
@@ -50,8 +51,9 @@ public final class TestDataFactory {
     };
 
     public static List<Storage> createStorages() throws IOException {
-        return MAPPER.readValue(getFixture("Storages.json"),
-                CollectionType.construct(List.class, SimpleType.construct(Storage.class)));
+        try (InputStream in = getFixture("Storages.json")) {
+            return MAPPER.readValue(in, CollectionType.construct(List.class, SimpleType.construct(Storage.class)));
+        }
     }
 
     public static Storage createStorage() throws IOException {
