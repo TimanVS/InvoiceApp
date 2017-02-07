@@ -16,20 +16,20 @@ import ua.timan.invoice.test.AbstractSpringTest;
 
 public abstract class AbstractRepositoryTest extends AbstractSpringTest implements InitializingBean {
 
-    private static boolean testDataInserted = false;
+	private static boolean testDataInserted = false;
 
-    @Autowired
-    private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
 
-    @Override
-    public void afterPropertiesSet() throws SQLException, IOException {
-        if (testDataInserted) {
-            return;
-        }
-        try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
-            statement.execute(getResourceAsString("test-data.sql"));
-        }
-        testDataInserted = true;
-    }
+	@Override
+	public void afterPropertiesSet() throws SQLException, IOException {
+		if (testDataInserted) {
+			return;
+		}
+		try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
+			statement.execute(getResourceAsString("test-data.sql"));
+		}
+		testDataInserted = true;
+	}
 
 }
