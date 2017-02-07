@@ -16,6 +16,8 @@ import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
 import lombok.NoArgsConstructor;
 import ua.timan.invoice.domain.PackingList;
+import ua.timan.invoice.domain.ProductGroup;
+import ua.timan.invoice.domain.Provider;
 import ua.timan.invoice.domain.Storage;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -59,5 +61,35 @@ public final class TestDataFactory {
     public static Storage createStorage() throws IOException {
         List<Storage> storages = createStorages();
         return storages.get(new Random().nextInt(storages.size()));
+    }
+    
+    /**
+     * Парсинг ProductGroups.json
+     */
+    
+    public static List<ProductGroup> createProductGroups() throws IOException {
+        try (InputStream in = getFixture("ProductGroups.json")) {
+            return MAPPER.readValue(in, CollectionType.construct(List.class, SimpleType.construct(ProductGroup.class)));
+        }
+    }
+
+    public static ProductGroup createProductGroup() throws IOException {
+        List<ProductGroup> groups = createProductGroups();
+        return groups.get(new Random().nextInt(groups.size()));
+    }
+    
+    /**
+     * Парсинг Providers.json
+     */
+    
+    public static List<Provider> createProviders() throws IOException {
+        try (InputStream in = getFixture("Providers.json")) {
+            return MAPPER.readValue(in, CollectionType.construct(List.class, SimpleType.construct(Provider.class)));
+        }
+    }
+
+    public static Provider createProvider() throws IOException {
+        List<Provider> providers = createProviders();
+        return providers.get(new Random().nextInt(providers.size()));
     }
 }

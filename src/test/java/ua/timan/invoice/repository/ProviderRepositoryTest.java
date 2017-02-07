@@ -1,11 +1,13 @@
 package ua.timan.invoice.repository;
 
 import static org.junit.Assert.assertEquals;
-import static ua.timan.invoice.test.TestDataFactory.MAPPER;
-import static ua.timan.invoice.test.TestDataFactory.getFixture;
+import static org.junit.Assert.assertThat;
+import static ua.timan.invoice.test.TestDataFactory.createProvider;
 
 import java.io.IOException;
 
+import org.hamcrest.Matchers;
+import org.hamcrest.collection.IsEmptyIterable;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +28,18 @@ public class ProviderRepositoryTest extends AbstractSpringTest {
 
 	@Before
 	public void setUpProvider() throws IOException {
-		entity = (Provider) MAPPER.readValue(getFixture("Provider.json"), Provider.class);
+		entity = createProvider();
 	}
 
 	@Test
 	public void shouldSaveAndGetProviderEntity() {
 		repository.save(entity);
-		Provider result = repository.findOne(ID);
+		Provider result = repository.findOne(entity.getId());
 		assertEquals(entity, result);
 		log.info(result.toString());
+		
+		Iterable<Provider> providers =  repository.findAll();
+		assertThat(providers, Matchers.not(IsEmptyIterable.emptyIterable()));
 
 	}
 
