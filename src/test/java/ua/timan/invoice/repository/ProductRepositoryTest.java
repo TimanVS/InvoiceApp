@@ -1,55 +1,39 @@
 package ua.timan.invoice.repository;
 
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static ua.timan.invoice.test.TestDataFactory.createProduct;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ua.timan.invoice.domain.PackingItem;
 import ua.timan.invoice.domain.Product;
-import ua.timan.invoice.domain.ProductGroup;
-import ua.timan.invoice.domain.enums.Measure;
 
 public class ProductRepositoryTest extends AbstractRepositoryTest {
 
-    public static final int IDPRODUCT = 1;
+	private Product productEntity;
 
-    public static final BigDecimal PRICE = BigDecimal.valueOf(10.5).setScale(2, RoundingMode.HALF_UP);
+	@Autowired
+	private ProductRepository productRepository;
 
-    private ProductGroup groupEntity;
-    private Product productEntity;
-    private PackingItem piEntity;
+	@Before
+	public void setUp() throws IOException {
+		productEntity = createProduct();
+	}
 
-    @Autowired
-    private ProductGroupRepository groupRepository;
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private PackingItemRepository piRepository;
+	@Test
+	public void shouldSaveAndGetProductEntity() {
+		productRepository.save(productEntity);
+		Product result = productRepository.findOne(productEntity.getId());
+		assertEquals(productEntity, result);
 
-    @Before
-    public void setUp() {
-        groupEntity = new ProductGroup(1, "Табачные изделия");
-        productEntity = new Product(IDPRODUCT, "Сигареты Парламент", groupEntity, Measure.PIECE);
-        piEntity = new PackingItem(1, "", productEntity, BigDecimal.ONE, PRICE, PRICE);
-    }
-
-    @Test
-    public void shouldSaveAndGetProductEntity() {
-        productRepository.save(productEntity);
-        Product result = productRepository.findOne(IDPRODUCT);
-        assertEquals(productEntity, result);
-    }
-
-    @Test
-    public void shouldSaveAndGetPackingItemEntity() {
-        piRepository.save(piEntity);
-        PackingItem result = piRepository.findOne(1);
-        assertEquals(piEntity, result);
-    }
+		Iterable<Product> groups = productRepository.findAll();
+		assertThat(groups, not(emptyIterable()));
+	}
 
 }

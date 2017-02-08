@@ -18,28 +18,28 @@ import ua.timan.invoice.domain.Provider;
 @Slf4j
 public class ProviderRepositoryTest extends AbstractRepositoryTest {
 
-    public static final int ID = 1;
+	public static final int ID = 1;
 
-    private Provider entity;
+	private Provider entity;
 
-    @Autowired
-    private ProviderRepository repository;
+	@Autowired
+	private ProviderRepository repository;
 
-    @Before
-    public void setUpProvider() throws IOException {
-        entity = createProvider();
-    }
+	@Before
+	public void setUpProvider() throws IOException {
+		entity = createProvider();
+	}
 
-    @Test
-    public void shouldSaveAndGetProviderEntity() {
-        repository.save(entity);
-        Provider result = repository.findOne(entity.getId());
-        assertEquals(entity, result);
-        log.info(result.toString());
+	@Test
+	public void shouldSaveAndGetProviderEntity() {
+		repository.save(entity);
+		Provider result = repository.findOne(entity.getId());
+		assertEquals(entity, result);
+		log.info(result.toString());
 
-        Iterable<Provider> providers = repository.findAll();
-        assertThat(providers, not(emptyIterable()));
+		Iterable<Provider> providers = repository.findAll();
+		assertThat(providers, not(emptyIterable()));
 
-    }
+	}
 
 }

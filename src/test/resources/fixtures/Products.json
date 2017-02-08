@@ -1,0 +1,38 @@
+[
+	{
+  "id" : 11,
+  "name" : "Шоколад Свиточ 250г",
+  "group" : {
+    "id" : 1,
+    "name" : "Кондитерские изделия"
+  },
+  "measure" : "PIECE"
+},
+	{
+  "id" : 12,
+  "name" : "Сало",
+  "group" : {
+    "id" : 2,
+    "name" : "Мясные изделия"
+  },
+  "measure" : "WEIGHT"
+},
+	{
+  "id" : 13,
+  "name" : "Сигареты Rothmans",
+  "group" : {
+    "id" : 3,
+    "name" : "Табачные изделия"
+  },
+  "measure" : "PIECE"
+},
+	{
+  "id" : 14,
+  "name" : "Минтай морож.",
+  "group" : {
+    "id" : 14,
+    "name" : "Рыба"
+  },
+  "measure" : "WEIGHT"
+}
+]

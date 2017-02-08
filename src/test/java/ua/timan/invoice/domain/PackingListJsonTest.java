@@ -20,13 +20,13 @@ import ua.timan.web_static.ui.SampleWebStaticApplication;
 @SpringApplicationConfiguration(classes = SampleWebStaticApplication.class)
 @Slf4j
 public class PackingListJsonTest {
-	/*
+	
 	@Test
 	public void shouldConvertPackingListToJson() throws JsonProcessingException {
 		String json = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(createPackingList());
 		log.info(json);
 	}
-
+/*
 	@Test
 	public void shouldDeserializePackingList() throws IOException {
 		PackingList result = (PackingList) MAPPER.readValue(getFixture("PackingList.json"), PackingList.class);
@@ -35,8 +35,8 @@ public class PackingListJsonTest {
 	}
 	*/
 	@Test
-	public void shouldDeserializeStorage() throws IOException {
-		ProductGroup result = (ProductGroup) MAPPER.readValue(getFixture("ProductGroup.json"), ProductGroup.class);
+	public void shouldDeserializeProduct() throws IOException {
+		Product result = (Product) MAPPER.readValue(getFixture("Product.json"), Product.class);
 		log.info(result.toString());
 		assertNotNull(result);
 	}

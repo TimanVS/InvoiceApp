@@ -18,6 +18,7 @@ import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
 import lombok.NoArgsConstructor;
 import ua.timan.invoice.domain.PackingList;
+import ua.timan.invoice.domain.Product;
 import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.domain.Provider;
 import ua.timan.invoice.domain.Storage;
@@ -101,6 +102,15 @@ public final class TestDataFactory {
         return getRandomItem(createProviders());
     }
 
+    public static List<Product> createProducts() throws IOException {
+        return MAPPER.readValue(getFixture("Products.json"),
+                CollectionType.construct(List.class, SimpleType.construct(Product.class)));
+    }
+
+    public static Product createProduct() throws IOException {
+        return getRandomItem(createProducts());
+    }
+    
     private static <T> T getRandomItem(List<T> list) {
         return list.get(new Random().nextInt(list.size()));
     }
