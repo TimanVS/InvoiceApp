@@ -28,15 +28,5 @@
     "name" : "Табачные изделия"
   },
   "measure" : "PIECE"
-},
-	{
-  "id" : 14,
-  "barcode" : "123654",
-  "name" : "Минтай морож.",
-  "group" : {
-    "id" : 14,
-    "name" : "Рыба"
-  },
-  "measure" : "WEIGHT"
 }
 ]
