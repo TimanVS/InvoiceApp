@@ -1,6 +1,5 @@
 package ua.timan.invoice.test;
 
-import static java.util.Arrays.asList;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.io.ByteArrayOutputStream;
@@ -18,7 +17,6 @@ import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
 import lombok.NoArgsConstructor;
 import ua.timan.invoice.domain.PackingItem;
-import ua.timan.invoice.domain.PackingList;
 import ua.timan.invoice.domain.Product;
 import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.domain.Provider;
@@ -67,7 +65,7 @@ public final class TestDataFactory {
 	public static String getFixture(String fileName) throws IOException {
 		return getResourceAsString(FIXTURES_PATH + fileName);
 	}
-	
+
 	public static <T> T createPodam(Class<T> classT) {
 		return PODAM_FACTORY.manufacturePojo(classT);
 	}
@@ -107,7 +105,7 @@ public final class TestDataFactory {
 	public static Product createProduct() throws IOException {
 		return getRandomItem(createProducts());
 	}
-	
+
 	public static List<PackingItem> createPackingItems() throws IOException {
 		return MAPPER.readValue(getFixture("PackingItems.json"),
 				CollectionType.construct(List.class, SimpleType.construct(PackingItem.class)));
