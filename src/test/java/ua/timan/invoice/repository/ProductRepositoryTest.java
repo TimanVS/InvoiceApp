@@ -32,8 +32,8 @@ public class ProductRepositoryTest extends AbstractRepositoryTest {
 		Product result = productRepository.findOne(productEntity.getId());
 		assertEquals(productEntity, result);
 
-		Iterable<Product> groups = productRepository.findAll();
-		assertThat(groups, not(emptyIterable()));
+		Iterable<Product> products = productRepository.findAll();
+		assertThat(products, not(emptyIterable()));
 	}
 
 }

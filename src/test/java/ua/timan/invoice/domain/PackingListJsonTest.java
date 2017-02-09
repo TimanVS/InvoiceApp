@@ -35,8 +35,8 @@ public class PackingListJsonTest {
 	}
 	*/
 	@Test
-	public void shouldDeserializeProduct() throws IOException {
-		Product result = (Product) MAPPER.readValue(getFixture("Product.json"), Product.class);
+	public void shouldDeserializePackingItem() throws IOException {
+		PackingItem result = (PackingItem) MAPPER.readValue(getFixture("PackingItem.json"), PackingItem.class);
 		log.info(result.toString());
 		assertNotNull(result);
 	}

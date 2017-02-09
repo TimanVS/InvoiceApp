@@ -21,22 +21,17 @@ public class PackingListRepositoryTest extends AbstractRepositoryTest {
     public static final int IDPLIST = 1;
     public static final BigDecimal PRICE = BigDecimal.valueOf(5.23).setScale(2, RoundingMode.HALF_UP);
 
-    private PackingItem piEntity;
+    
     private PackingList plEntity;
     private Provider providerEntity;
     private Storage storageEntity;
     private List<PackingItem> list;
 
-    @Autowired
-    private PackingItemRepository piRepository;
+   
     @Autowired
     private PackingListRepository plRepository;
 
-    @Before
-    public void setUpPackingItem() {
-        providerEntity = new Provider(1, "ЛКО");
-        storageEntity = new Storage(1, "Мой магазин");
-    }
+   
 
     @Before
     public void setUpProvider() {
@@ -55,12 +50,7 @@ public class PackingListRepositoryTest extends AbstractRepositoryTest {
      * "Ну шо ишо?"); }
      */
 
-    @Test
-    public void shouldSaveAndGetPackingItemEntity() {
-        piRepository.save(piEntity);
-        PackingItem result = piRepository.findOne(IDPITEM);
-        assertEquals(piEntity, result);
-    }
+   
 
     @Test
     public void shouldSaveAndGetPackingListEntity() {

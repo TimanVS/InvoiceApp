@@ -1,0 +1,50 @@
+[ 
+ {
+  "id" : 11,
+  "barcode" : "222",
+  "product" : {
+    "id" : 1,
+    "name" : "Шоколад Корона 250г",
+    "group" : {
+      "id" : 1,
+      "name" : "Кондитерские изделия"
+    },
+    "measure" : "PIECE"
+  },
+  "quantity" : 1,
+  "price" : 25,
+  "sum" : 25
+ },
+ {
+  "id" : 12,
+  "barcode" : "665465",
+  "product" : {
+    "id" : 2,
+    "name" : "Шоколад Рошен 100г",
+    "group" : {
+      "id" : 1,
+      "name" : "Кондитерские изделия"
+    },
+    "measure" : "PIECE"
+  },
+  "quantity" : 2,
+  "price" : 23,
+  "sum" : 46
+ },
+  {
+  "id" : 13,
+  "barcode" : "12643",
+  "product" : {
+    "id" : 3,
+    "name" : "Ошеек свинной",
+    "group" : {
+      "id" : 2,
+      "name" : "Мясные изделия"
+    },
+    "measure" : "WEIGHT"
+  },
+  "quantity" : 0.435,
+  "price" : 80,
+  "sum" : 34.18
+ }
+]
