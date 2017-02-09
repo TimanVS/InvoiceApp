@@ -67,14 +67,10 @@ public final class TestDataFactory {
 	public static String getFixture(String fileName) throws IOException {
 		return getResourceAsString(FIXTURES_PATH + fileName);
 	}
-
-	public static PackingList createPackingList() {
-		return PODAM_FACTORY.manufacturePojo(PackingList.class);
-	};
-
-	public static List<PackingList> createPackingLists() {
-		return asList(createPackingList(), createPackingList());
-	};
+	
+	public static <T> T createPodam(Class<T> classT) {
+		return PODAM_FACTORY.manufacturePojo(classT);
+	}
 
 	public static List<Storage> createStorages() throws IOException {
 		return MAPPER.readValue(getFixture("Storages.json"),

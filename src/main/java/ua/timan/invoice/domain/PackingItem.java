@@ -18,7 +18,6 @@ public class PackingItem {
 
     @Id
     private int id;
-    private String barcode;
     @ManyToOne
     private Product product;
     private BigDecimal quantity;

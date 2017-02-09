@@ -17,6 +17,7 @@ public class Product {
 
     @Id
     private int id;
+    private String barcode;
     private String name;
     @ManyToOne
     private ProductGroup group;

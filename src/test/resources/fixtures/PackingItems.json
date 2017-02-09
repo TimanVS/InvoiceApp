@@ -11,9 +11,9 @@
     },
     "measure" : "PIECE"
   },
-  "quantity" : 1,
-  "price" : 25,
-  "sum" : 25
+  "quantity" : 1.00,
+  "price" : 25.00,
+  "sum" : 25.00
  },
  {
   "id" : 12,
@@ -27,9 +27,9 @@
     },
     "measure" : "PIECE"
   },
-  "quantity" : 2,
-  "price" : 23,
-  "sum" : 46
+  "quantity" : 2.00,
+  "price" : 23.00,
+  "sum" : 46.00
  },
   {
   "id" : 13,
@@ -43,8 +43,8 @@
     },
     "measure" : "WEIGHT"
   },
-  "quantity" : 0.435,
-  "price" : 80,
+  "quantity" : 0.44,
+  "price" : 80.00,
   "sum" : 34.18
  }
 ]
