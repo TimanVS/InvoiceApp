@@ -18,25 +18,25 @@ import ua.timan.invoice.domain.Storage;
 @Slf4j
 public class StorageRepositoryTest extends AbstractRepositoryTest {
 
-    private Storage entity;
+	private Storage entity;
 
-    @Autowired
-    private StorageRepository repository;
+	@Autowired
+	private StorageRepository repository;
 
-    @Before
-    public void setUp() throws IOException {
-        entity = createStorage();
-    }
+	@Before
+	public void setUp() throws IOException {
+		entity = createStorage();
+	}
 
-    @Test
-    public void shouldSaveAndGetStorageEntity() {
-        repository.save(entity);
-        Storage result = repository.findOne(entity.getId());
-        assertEquals(entity, result);
-        log.info(result.toString());
+	@Test
+	public void shouldSaveAndGetStorageEntity() {
+		repository.save(entity);
+		Storage result = repository.findOne(entity.getId());
+		assertEquals(entity, result);
+		log.info(result.toString());
 
-        Iterable<Storage> storages = repository.findAll();
-        assertThat(storages, not(emptyIterable()));
-    }
+		Iterable<Storage> storages = repository.findAll();
+		assertThat(storages, not(emptyIterable()));
+	}
 
 }

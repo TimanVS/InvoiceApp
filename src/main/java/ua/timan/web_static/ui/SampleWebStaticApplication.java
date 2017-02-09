@@ -50,55 +50,55 @@ import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 @EnableJpaRepositories(basePackages = "ua.timan.invoice.repository")
 public class SampleWebStaticApplication extends SpringBootServletInitializer {
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(SampleWebStaticApplication.class, args);
-    }
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(SampleWebStaticApplication.class, args);
+	}
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(SampleWebStaticApplication.class);
-    }
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(SampleWebStaticApplication.class);
+	}
 
-    @Bean
-    public DataSource dataSource() {
-        return JdbcConnectionPool.create("jdbc:h2:c:/temp/testdb", "sa", "sa");
-    }
-//jdbc:h2:mem:testdb
-    @Bean
-    public FactoryBean<EntityManagerFactory> entityManagerFactory() {
+	@Bean
+	public DataSource dataSource() {
+		return JdbcConnectionPool.create("jdbc:h2:mem:testdb", "sa", "sa");
+	}
 
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabase(Database.H2);
-        vendorAdapter.setGenerateDdl(true);
-        vendorAdapter.setShowSql(true);
+	@Bean
+	public FactoryBean<EntityManagerFactory> entityManagerFactory() {
 
-        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-        factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("ua.timan.invoice.domain");
-        factory.setDataSource(dataSource());
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		vendorAdapter.setDatabase(Database.H2);
+		vendorAdapter.setGenerateDdl(true);
+		vendorAdapter.setShowSql(true);
 
-        return factory;
-    }
+		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+		factory.setJpaVendorAdapter(vendorAdapter);
+		factory.setPackagesToScan("ua.timan.invoice.domain");
+		factory.setDataSource(dataSource());
 
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-        JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactory);
-        return txManager;
-    }
+		return factory;
+	}
 
-    @Bean
-    public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
-        return entityManagerFactory.createEntityManager();
-    }
+	@Bean
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		JpaTransactionManager txManager = new JpaTransactionManager();
+		txManager.setEntityManagerFactory(entityManagerFactory);
+		return txManager;
+	}
 
-    @Bean
-    public FactoryBean<ObjectMapper> objectMapper() {
-        Jackson2ObjectMapperFactoryBean factory = new Jackson2ObjectMapperFactoryBean();
-        List<Module> modules = new ArrayList<Module>();
-        modules.add(new JSR310Module());
-        factory.setModules(modules);
-        return factory;
-    }
+	@Bean
+	public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
+		return entityManagerFactory.createEntityManager();
+	}
+
+	@Bean
+	public FactoryBean<ObjectMapper> objectMapper() {
+		Jackson2ObjectMapperFactoryBean factory = new Jackson2ObjectMapperFactoryBean();
+		List<Module> modules = new ArrayList<Module>();
+		modules.add(new JSR310Module());
+		factory.setModules(modules);
+		return factory;
+	}
 
 }

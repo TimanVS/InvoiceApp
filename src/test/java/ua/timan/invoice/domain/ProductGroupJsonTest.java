@@ -15,17 +15,17 @@ import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.test.AbstractSpringTest;
 
 @Slf4j
-public class PackingListJsonTest extends AbstractSpringTest {
+public class ProductGroupJsonTest extends AbstractSpringTest {
 
 	@Test
-	public void shouldConvertPackingListToJson() throws JsonProcessingException {
-		String json = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(createPodam(PackingList.class));
+	public void shouldConvertProductGroupToJson() throws JsonProcessingException {
+		String json = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(createPodam(ProductGroup.class));
 		log.info(json);
 	}
 
 	@Test
-	public void shouldDeserializePackingList() throws IOException {
-		PackingList result = (PackingList) MAPPER.readValue(getFixture("PackingList.json"), PackingList.class);
+	public void shouldDeserializeProductGroup() throws IOException {
+		ProductGroup result = (ProductGroup) MAPPER.readValue(getFixture("ProductGroup.json"), ProductGroup.class);
 		log.info(result.toString());
 		assertNotNull(result);
 	}

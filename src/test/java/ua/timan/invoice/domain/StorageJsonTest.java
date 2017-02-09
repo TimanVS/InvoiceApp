@@ -15,17 +15,17 @@ import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.test.AbstractSpringTest;
 
 @Slf4j
-public class PackingListJsonTest extends AbstractSpringTest {
+public class StorageJsonTest extends AbstractSpringTest {
 
 	@Test
-	public void shouldConvertPackingListToJson() throws JsonProcessingException {
-		String json = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(createPodam(PackingList.class));
+	public void shouldConvertStorageToJson() throws JsonProcessingException {
+		String json = MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(createPodam(Storage.class));
 		log.info(json);
 	}
 
 	@Test
-	public void shouldDeserializePackingList() throws IOException {
-		PackingList result = (PackingList) MAPPER.readValue(getFixture("PackingList.json"), PackingList.class);
+	public void shouldDeserializeStorage() throws IOException {
+		Storage result = (Storage) MAPPER.readValue(getFixture("Storage.json"), Storage.class);
 		log.info(result.toString());
 		assertNotNull(result);
 	}
