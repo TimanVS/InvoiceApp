@@ -1,0 +1,50 @@
+[ 
+ {
+  "id" : 11,
+  "product" : {
+    "id" : 1,
+    "barcode" : "4821006150134",
+    "name" : "Шоколад Корона 250г",
+    "group" : {
+      "id" : 1,
+      "name" : "Кондитерские изделия"
+    },
+    "measure" : "PIECE"
+  },
+  "quantity" : 1.00,
+  "price" : 25.00,
+  "sum" : 25.00
+ },
+ {
+  "id" : 12,
+  "product" : {
+    "id" : 3,
+    "barcode" : "122954",
+    "name" : "Ошеек свинной",
+    "group" : {
+      "id" : 2,
+      "name" : "Мясные изделия"
+    },
+    "measure" : "WEIGHT"
+  },
+  "quantity" : 0.44,
+  "price" : 80.00,
+  "sum" : 34.80
+ },
+  {
+  "id" : 13,
+  "product" : {
+    "id" : 4,
+    "barcode" : "01456856",
+    "name" : "Сигареты Marlboro",
+    "group" : {
+      "id" : 3,
+      "name" : "Табачные изделия"
+    },
+    "measure" : "PIECE"
+  },
+  "quantity" : 2.00,
+  "price" : 25.00,
+  "sum" : 50.00
+ }
+]

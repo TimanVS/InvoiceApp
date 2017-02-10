@@ -1,0 +1,94 @@
+[
+{
+  "id" : 11,
+  "issueDate" : [ 2017, 2, 9 ],
+  "provider" : {
+    "id" : 1,
+    "name" : "Мегаполис"
+  },
+  "store" : {
+    "id" : 1,
+    "name" : "Центральный склад"
+  },
+  "items" : [ {
+    "id" : 1,
+    "product" : {
+      "id" : 1,
+      "barcode" : "4821006150134",
+      "name" : "Шоколад Корона 250г",
+      "group" : {
+        "id" : 1,
+        "name" : "Кондитерские изделия"
+      },
+      "measure" : "PIECE"
+    },
+    "quantity" : 10.00,
+    "price" : 25.50,
+    "sum" : 255.00
+  },
+  {
+    "id" : 2,
+    "product" : {
+      "id" : 2,
+      "barcode" : "4820164350014",
+      "name" : "Шоколад Рошен 100г",
+      "group" : {
+        "id" : 1,
+        "name" : "Кондитерские изделия"
+      },
+      "measure" : "PIECE"
+    },
+    "quantity" : 5.00,
+    "price" : 10.50,
+    "sum" : 52.50
+  }
+   ],
+  "comment" : "Накладная №1"
+},
+  {
+  "id" : 2,
+  "issueDate" : [ 2017, 2, 9 ],
+  "provider" : {
+    "id" : 3,
+    "name" : "Олга-трейд"
+  },
+  "store" : {
+    "id" : 2,
+    "name" : "Симиренко"
+  },
+  "items" : [ {
+    "id" : 4,
+    "product" : {
+      "id" : 4,
+      "barcode" : "401456856",
+      "name" : "Сигареты Marlboro",
+      "group" : {
+        "id" : 3,
+        "name" : "Табачные изделия"
+      },
+      "measure" : "PIECE"
+    },
+    "quantity" : 10.00,
+    "price" : 25.00,
+    "sum" : 250.00
+  },
+  {
+    "id" : 5,
+    "product" : {
+      "id" : 4,
+      "barcode" : "401456856",
+      "name" : "Сигареты Marlboro",
+      "group" : {
+        "id" : 3,
+        "name" : "Табачные изделия"
+      },
+      "measure" : "PIECE"
+    },
+    "quantity" : 10.00,
+    "price" : 25.50,
+    "sum" : 255.00
+  }
+   ],
+  "comment" : "Накладная №2"
+}
+]

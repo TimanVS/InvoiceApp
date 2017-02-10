@@ -1,0 +1,16 @@
+  {
+  "id" : 11,
+  "product" : {
+    "id" : 1,
+    "barcode" : "222",
+    "name" : "Шоколад Корона 250г",
+    "group" : {
+      "id" : 1,
+      "name" : "Кондитерские изделия"
+    },
+    "measure" : "PIECE"
+  },
+  "quantity" : 1,
+  "price" : 25,
+  "sum" : 25
+ }
