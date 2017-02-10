@@ -15,7 +15,7 @@ public class ProductServiceTest extends AbstractSpringTest {
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotCreateProductWithUnknownGroup() {
         Product product = new Product();
-        product.setGroup(new ProductGroup(1, "Новая группа товаров"));
+        product.setGroup(new ProductGroup(20, "Новая группа товаров"));
         productService.create(product);
     }
 }

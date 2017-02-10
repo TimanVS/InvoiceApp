@@ -22,9 +22,9 @@
       },
       "measure" : "PIECE"
     },
-    "quantity" : 1.00,
-    "price" : 25.00,
-    "sum" : 25.00
+    "quantity" : 10.00,
+    "price" : 25.50,
+    "sum" : 255.00
   },
   {
     "id" : 2,
@@ -60,7 +60,7 @@
     "id" : 4,
     "product" : {
       "id" : 4,
-      "barcode" : "01456856",
+      "barcode" : "401456856",
       "name" : "Сигареты Marlboro",
       "group" : {
         "id" : 3,
