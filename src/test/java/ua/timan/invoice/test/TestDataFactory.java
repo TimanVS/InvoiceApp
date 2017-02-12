@@ -102,7 +102,7 @@ public final class TestDataFactory {
 		return MAPPER.readValue(getFixture("Products.json"),
 				CollectionType.construct(List.class, SimpleType.construct(Product.class)));
 	}
-
+//
 	public static Product createProduct() throws IOException {
 		return getRandomItem(createProducts());
 	}
@@ -125,7 +125,11 @@ public final class TestDataFactory {
 		return getRandomItem(createPackingLists());
 	}
 
-	private static <T> T getRandomItem(List<T> list) {
+	public static <T> T getRandomItem(List<T> list) {
 		return list.get(new Random().nextInt(list.size()));
 	}
+	
+	public static <T> T getLastItem(List<T> list) {
+        return list != null && !list.isEmpty() ? list.get(list.size() - 1) : null;
+    }
 }

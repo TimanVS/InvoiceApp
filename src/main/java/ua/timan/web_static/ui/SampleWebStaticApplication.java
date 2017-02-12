@@ -61,7 +61,7 @@ public class SampleWebStaticApplication extends SpringBootServletInitializer {
 
 	@Bean
 	public DataSource dataSource() {
-		return JdbcConnectionPool.create("jdbc:h2:mem:testdb", "sa", "sa");
+		return JdbcConnectionPool.create("jdbc:h2:c:/temp/testdb", "sa", "sa");
 	}
 
 	@Bean

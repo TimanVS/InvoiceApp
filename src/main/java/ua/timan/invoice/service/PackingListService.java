@@ -7,7 +7,7 @@ import ua.timan.invoice.domain.PackingList;
 public class PackingListService {
 
 	public PackingList create(PackingList arg0) {
-		// TODO: 1. add unique id
+		// TODO: 1. add unique id   Решение: @GeneratedValue(strategy = GenerationType.IDENTITY)
 		return save(arg0);
 	}
 
@@ -24,7 +24,7 @@ public class PackingListService {
 		return null;
 	}
 
-	public void delete(String id) {
+	public void delete(int id) {
 
 	}
 

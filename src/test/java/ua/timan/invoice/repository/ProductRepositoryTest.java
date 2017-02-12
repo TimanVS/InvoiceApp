@@ -28,6 +28,7 @@ public class ProductRepositoryTest extends AbstractRepositoryTest {
 
 	@Test
 	public void shouldSaveAndGetProductEntity() {
+		productEntity.setId((int) (productRepository.count() + 1));
 		productRepository.save(productEntity);
 		Product result = productRepository.findOne(productEntity.getId());
 		assertEquals(productEntity, result);
