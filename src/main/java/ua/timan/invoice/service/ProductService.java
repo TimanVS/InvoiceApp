@@ -23,23 +23,14 @@ public class ProductService {
 	@NonNull
 	private ProductGroupRepository productGroupRepository;
 
-	public Product create(Product arg0) {
-		// TODO: 1. add unique id Решение: @GeneratedValue(strategy =
-		// GenerationType.IDENTITY)
-		return save(arg0);
+	public Product createProduct(Product arg0) {
+		arg0.setId((int) (productRepository.count() + 1));
+		return saveProduct(arg0);
 	}
-
-	// TODO методы переименовать в saveProduct и т.д. Иначе где ж ты будешь
-	// писать saveProductGroup и др.?
-	public Product save(Product arg0) {
-		Iterable<Product> products = productRepository.findAll();
+	
+	public Product saveProduct(Product arg0) {
+		Iterable<Product> products = productRepository.findByBarcode(arg0.getBarcode());
 		for (Product product : products) {
-			/*
-			 * TODO получать ВСЕ продукты и делать поиск внутри программы -
-			 * архизатратное дело. Гораздо проще прописать в репозитории поиск
-			 * по Barcode и делать проверку силами СУБД.
-			 * 
-			 */
 			if (product.getBarcode().equals(arg0.getBarcode())) {
 				throw new IllegalArgumentException("Such product already exists!");
 			}
@@ -50,23 +41,32 @@ public class ProductService {
 		return productRepository.save(arg0);
 	}
 
-	public Product get(int id) {
+	public Product getProduct(int id) {
 		return productRepository.findOne(id);
 	}
 
-	public Product update(Product arg0) {
+	public Product updateProd(Product arg0) {
 		// TODO не нужно создавать новую сущность с теми же данными. Сохраняй
 		// пришедший Product. Только выполни валидацию: что продукт с таким id
 		// уже существует и т.д.
-		Product value = get(arg0.getId());
+		Product value = getProduct(arg0.getId());
 		value.setBarcode(arg0.getBarcode());
 		value.setName(arg0.getName());
 		value.setGroup(arg0.getGroup());
 		value.setMeasure(arg0.getMeasure());
-		return save(value);
+		return saveProduct(value);
+	}
+	
+	public Product updateProduct(Product arg0) {
+		Product value = getProduct(arg0.getId());
+		value.setBarcode(arg0.getBarcode());
+		value.setName(arg0.getName());
+		value.setGroup(arg0.getGroup());
+		value.setMeasure(arg0.getMeasure());
+		return saveProduct(value);
 	}
 
-	public void delete(int id) {
+	public void deleteProduct(int id) {
 		productRepository.delete(id);
 	}
 
