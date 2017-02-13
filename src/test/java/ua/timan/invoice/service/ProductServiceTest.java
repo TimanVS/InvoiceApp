@@ -22,6 +22,9 @@ public class ProductServiceTest extends AbstractSpringTest {
 
 	@Autowired
 	private ProductService productService;
+	// Здесь он явно лишний, мы же тестируем сервис по принципу "черного ящика":
+	// знаем что подаем на вход и что ожидаем на выходе. Как этот результат
+	// достигается - мы не знаем.
 	@Autowired
 	private ProductRepository productRepository;
 
@@ -32,6 +35,7 @@ public class ProductServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldCreateAndGetProduct() {
+		// id должен прописываться внутри create метода, а не приходить из вне
 		productEntity.setId((int) (productRepository.count() + 1));
 		productService.create(productEntity);
 		Product result = productService.get(productEntity.getId());

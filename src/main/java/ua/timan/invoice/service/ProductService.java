@@ -29,9 +29,17 @@ public class ProductService {
 		return save(arg0);
 	}
 
+	// TODO методы переименовать в saveProduct и т.д. Иначе где ж ты будешь
+	// писать saveProductGroup и др.?
 	public Product save(Product arg0) {
 		Iterable<Product> products = productRepository.findAll();
 		for (Product product : products) {
+			/*
+			 * TODO получать ВСЕ продукты и делать поиск внутри программы -
+			 * архизатратное дело. Гораздо проще прописать в репозитории поиск
+			 * по Barcode и делать проверку силами СУБД.
+			 * 
+			 */
 			if (product.getBarcode().equals(arg0.getBarcode())) {
 				throw new IllegalArgumentException("Such product already exists!");
 			}
@@ -47,6 +55,9 @@ public class ProductService {
 	}
 
 	public Product update(Product arg0) {
+		// TODO не нужно создавать новую сущность с теми же данными. Сохраняй
+		// пришедший Product. Только выполни валидацию: что продукт с таким id
+		// уже существует и т.д.
 		Product value = get(arg0.getId());
 		value.setBarcode(arg0.getBarcode());
 		value.setName(arg0.getName());
