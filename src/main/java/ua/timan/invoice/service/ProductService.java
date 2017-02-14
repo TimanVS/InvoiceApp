@@ -28,22 +28,11 @@ public class ProductService {
 		arg0.setId((int) (productRepository.count() + 1));
 		return saveProduct(arg0);
 	}
-	
+
 	public ProductGroup createProductGroup(ProductGroup arg0) {
 		arg0.setId((int) (productGroupRepository.count() + 1));
 		return saveProductGroup(arg0);
 	}
-	
-	public ProductGroup saveProductGroup(ProductGroup arg0) {
-		Iterable<ProductGroup> productGroups = productGroupRepository.findByName(arg0.getName());
-		for (ProductGroup group : productGroups) {
-			if (group.getName().equals(arg0.getName())) {
-				throw new IllegalArgumentException("Such product group already exists!");
-			}
-		}
-		return productGroupRepository.save(arg0);
-	}
-
 
 	public Product saveProduct(Product arg0) {
 		Iterable<Product> products = productRepository.findByBarcode(arg0.getBarcode());
@@ -58,10 +47,20 @@ public class ProductService {
 		return productRepository.save(arg0);
 	}
 
+	public ProductGroup saveProductGroup(ProductGroup arg0) {
+		Iterable<ProductGroup> productGroups = productGroupRepository.findByName(arg0.getName());
+		for (ProductGroup group : productGroups) {
+			if (group.getName().equals(arg0.getName())) {
+				throw new IllegalArgumentException("Such product group already exists!");
+			}
+		}
+		return productGroupRepository.save(arg0);
+	}
+
 	public Product getProduct(int id) {
 		return productRepository.findOne(id);
 	}
-	
+
 	public ProductGroup getProductGroup(int id) {
 		return productGroupRepository.findOne(id);
 	}
@@ -88,11 +87,15 @@ public class ProductService {
 	}
 
 	public void deleteProduct(int id) {
+		if (productRepository.findOne(id) != null) {
 		productRepository.delete(id);
+		}
 	}
-	
+
 	public void deleteProductGroup(int id) {
+		if (productGroupRepository.findOne(id) != null) {
 		productGroupRepository.delete(id);
+		}
 	}
 
 	public List<Product> getAllProducts() {
@@ -103,7 +106,7 @@ public class ProductService {
 		}
 		return listProduct;
 	}
-	
+
 	public List<ProductGroup> getAllProductGroups() {
 		List<ProductGroup> listGroup = new ArrayList<ProductGroup>();
 		Iterable<ProductGroup> groups = productGroupRepository.findAll();

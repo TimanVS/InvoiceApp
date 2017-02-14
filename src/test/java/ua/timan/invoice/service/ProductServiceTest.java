@@ -18,6 +18,8 @@ import ua.timan.invoice.test.AbstractSpringTest;
 import ua.timan.invoice.test.TestDataFactory;
 
 public class ProductServiceTest extends AbstractSpringTest {
+	
+	private final int ID = 1;
 
 	@Autowired
 	private ProductService productService;
@@ -57,6 +59,11 @@ public class ProductServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateProduct() {
 
+	}
+	
+	@Test
+	public void shouldDeleteProduct() {
+		productService.deleteProduct(ID);
 	}
 
 }
