@@ -1,6 +1,6 @@
 [
 	{
-  "id" : 1,
+  "id" : 10,
   "barcode" : "4820135418043",
   "name" : "Шоколад Свиточ 250г",
   "group" : {
@@ -10,7 +10,7 @@
   "measure" : "PIECE"
 },
 	{
-  "id" : 2,
+  "id" : 11,
   "barcode" : "123456",
   "name" : "Сало",
   "group" : {
@@ -20,7 +20,7 @@
   "measure" : "WEIGHT"
 },
 	{
-  "id" : 3,
+  "id" : 12,
   "barcode" : "4820005580080",
   "name" : "Сигареты Rothmans",
   "group" : {
@@ -30,7 +30,7 @@
   "measure" : "PIECE"
 },
    {
-  "id" : 4,
+  "id" : 13,
   "barcode" : "122689",
   "name" : "Минтай свежеморож.",
   "group" : {
