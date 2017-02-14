@@ -102,9 +102,13 @@ public final class TestDataFactory {
 		return MAPPER.readValue(getFixture("Products.json"),
 				CollectionType.construct(List.class, SimpleType.construct(Product.class)));
 	}
-//
+
 	public static Product createProduct() throws IOException {
 		return getRandomItem(createProducts());
+	}
+	
+	public static Product extractLastProduct() throws IOException {
+		return getLastItem(createProducts());
 	}
 
 	public static List<PackingItem> createPackingItems() throws IOException {

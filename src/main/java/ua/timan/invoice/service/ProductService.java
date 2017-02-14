@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import lombok.NonNull;
 import lombok.Setter;
 import ua.timan.invoice.domain.Product;
+import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.repository.ProductGroupRepository;
 import ua.timan.invoice.repository.ProductRepository;
 
@@ -28,6 +29,22 @@ public class ProductService {
 		return saveProduct(arg0);
 	}
 	
+	public ProductGroup createProductGroup(ProductGroup arg0) {
+		arg0.setId((int) (productGroupRepository.count() + 1));
+		return saveProductGroup(arg0);
+	}
+	
+	public ProductGroup saveProductGroup(ProductGroup arg0) {
+		Iterable<ProductGroup> productGroups = productGroupRepository.findByName(arg0.getName());
+		for (ProductGroup group : productGroups) {
+			if (group.getName().equals(arg0.getName())) {
+				throw new IllegalArgumentException("Such product group already exists!");
+			}
+		}
+		return productGroupRepository.save(arg0);
+	}
+
+
 	public Product saveProduct(Product arg0) {
 		Iterable<Product> products = productRepository.findByBarcode(arg0.getBarcode());
 		for (Product product : products) {
@@ -44,6 +61,10 @@ public class ProductService {
 	public Product getProduct(int id) {
 		return productRepository.findOne(id);
 	}
+	
+	public ProductGroup getProductGroup(int id) {
+		return productGroupRepository.findOne(id);
+	}
 
 	public Product updateProd(Product arg0) {
 		// TODO не нужно создавать новую сущность с теми же данными. Сохраняй
@@ -56,7 +77,7 @@ public class ProductService {
 		value.setMeasure(arg0.getMeasure());
 		return saveProduct(value);
 	}
-	
+
 	public Product updateProduct(Product arg0) {
 		Product value = getProduct(arg0.getId());
 		value.setBarcode(arg0.getBarcode());
@@ -69,6 +90,10 @@ public class ProductService {
 	public void deleteProduct(int id) {
 		productRepository.delete(id);
 	}
+	
+	public void deleteProductGroup(int id) {
+		productGroupRepository.delete(id);
+	}
 
 	public List<Product> getAllProducts() {
 		List<Product> listProduct = new ArrayList<Product>();
@@ -77,6 +102,15 @@ public class ProductService {
 			listProduct.add(product);
 		}
 		return listProduct;
+	}
+	
+	public List<ProductGroup> getAllProductGroups() {
+		List<ProductGroup> listGroup = new ArrayList<ProductGroup>();
+		Iterable<ProductGroup> groups = productGroupRepository.findAll();
+		for (ProductGroup group : groups) {
+			listGroup.add(group);
+		}
+		return listGroup;
 	}
 
 }
