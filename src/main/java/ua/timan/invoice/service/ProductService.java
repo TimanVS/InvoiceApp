@@ -54,11 +54,16 @@ public class ProductService {
 
     private Product saveProduct(Product arg0) {
         Iterable<Product> products = productRepository.findByBarcode(arg0.getBarcode());
+        // TODO что если ты меняешь существующий продукт? При этом у тебя уже
+        // имеется сущность в БД с таким же Barcode, но ты меняешь другие поля.
+        // Так же возможна ситуация, когда ты меняешь Barcode, но на тот, что
+        // имеется у другой сущности, с другим id. Пиши тесты и правь код
         for (Product product : products) {
             if (product.getBarcode().equals(arg0.getBarcode())) {
                 throw new IllegalArgumentException("Such product already exists!");
             }
         }
+        // TODO arg0.getGroup() может дать null. Добавь проверку.
         if (!productGroupRepository.exists(arg0.getGroup().getId())) {
             throw new IllegalArgumentException("No such product group!");
         }
