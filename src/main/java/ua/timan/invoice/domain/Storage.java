@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Storage {
+public class Storage implements IdAware {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

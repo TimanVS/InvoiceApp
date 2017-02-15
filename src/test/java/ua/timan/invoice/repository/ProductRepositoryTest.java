@@ -1,40 +1,21 @@
 package ua.timan.invoice.repository;
 
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static ua.timan.invoice.test.TestDataFactory.createProduct;
 
-import java.io.IOException;
-
-import org.junit.Before;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.Getter;
 import ua.timan.invoice.domain.Product;
 
-public class ProductRepositoryTest extends AbstractRepositoryTest {
+public class ProductRepositoryTest extends AbstractRepositoryTest<Product, ProductRepository> {
 
-	private Product productEntity;
+    @Getter
+    @Autowired
+    private ProductRepository repository;
 
-	@Autowired
-	private ProductRepository productRepository;
-
-	@Before
-	public void setUp() throws IOException {
-		productEntity = createProduct();
-	}
-
-	@Test
-	public void shouldSaveAndGetProductEntity() {
-		productEntity.setId((int) (productRepository.count() + 1));
-		productRepository.save(productEntity);
-		Product result = productRepository.findOne(productEntity.getId());
-		assertEquals(productEntity, result);
-
-		Iterable<Product> products = productRepository.findAll();
-		assertThat(products, not(emptyIterable()));
-	}
+    @Override
+    protected Product createEntity() throws Exception {
+        return createProduct();
+    }
 
 }
