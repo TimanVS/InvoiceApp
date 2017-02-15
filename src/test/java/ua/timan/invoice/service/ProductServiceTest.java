@@ -9,6 +9,7 @@ import static ua.timan.invoice.test.TestDataFactory.extractLastProduct;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,7 +25,7 @@ public class ProductServiceTest extends AbstractSpringTest {
 	@Autowired
 	private ProductService productService;
 
-	@Test
+	@Before
 	public void souldCreateProductGroupAndProduct() throws IOException {
 		List<Product> productList = createProducts();
 		List<ProductGroup> productGroupList = TestDataFactory.createProductGroups();
@@ -59,10 +60,9 @@ public class ProductServiceTest extends AbstractSpringTest {
 	@Test
 	public void shouldUpdateProduct() throws IOException {
 		Product product = extractLastProduct();
-		log.info(product.toString());
 		product.setName("Минтай с/м Аргентина");
 		productService.updateProduct(product);
-		log.info(product.toString());
+		
 		
 		
 	}
