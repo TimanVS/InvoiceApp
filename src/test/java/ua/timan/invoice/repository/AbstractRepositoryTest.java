@@ -25,20 +25,20 @@ import ua.timan.invoice.domain.IdAware;
 import ua.timan.invoice.test.AbstractSpringTest;
 
 @Slf4j
-public abstract class AbstractRepositoryTest<E extends IdAware, T extends CrudRepository<E, Integer>>
-        extends AbstractSpringTest implements InitializingBean {
+public abstract class AbstractRepositoryTest<E extends IdAware> extends AbstractSpringTest implements InitializingBean {
 
     private static boolean testDataInserted = false;
 
     @Autowired
-    private DataSource dataSource;
+    protected DataSource dataSource;
 
-    private T repository;
+    @Autowired
+    protected CrudRepository<E, Integer> repository;
 
-    private E entity;
+    protected E entity;
 
     @Override
-    public void afterPropertiesSet() throws SQLException, IOException {
+    public final void afterPropertiesSet() throws SQLException, IOException {
         if (testDataInserted) {
             return;
         }
@@ -49,14 +49,13 @@ public abstract class AbstractRepositoryTest<E extends IdAware, T extends CrudRe
     }
 
     @Before
-    public void setUp() throws Exception {
-        repository = getRepository();
+    public final void setUp() throws Exception {
         entity = createEntity();
     }
 
     @Test
     @Transactional
-    public void shouldSaveAndGetEntity() {
+    public final void shouldSaveAndGetEntity() {
         E result = repository.save(entity);
 
         log.info("{} was saved with id {}", entity.getClass().getSimpleName(), result.getId());
@@ -70,8 +69,6 @@ public abstract class AbstractRepositoryTest<E extends IdAware, T extends CrudRe
         assertThat(items, not(emptyIterable()));
         log.info(items.toString());
     }
-
-    protected abstract T getRepository();
 
     protected abstract E createEntity() throws Exception;
 }
