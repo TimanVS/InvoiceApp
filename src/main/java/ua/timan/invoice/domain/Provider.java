@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 
-public class Provider {
+public class Provider implements IdAware {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

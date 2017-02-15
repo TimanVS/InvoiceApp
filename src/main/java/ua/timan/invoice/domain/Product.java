@@ -15,7 +15,7 @@ import ua.timan.invoice.domain.enums.Measure;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Product {
+public class Product implements IdAware {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

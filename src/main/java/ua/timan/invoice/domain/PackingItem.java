@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class PackingItem {
+public class PackingItem implements IdAware {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

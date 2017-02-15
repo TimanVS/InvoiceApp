@@ -1,35 +1,13 @@
 package ua.timan.invoice.repository;
 
-import static org.junit.Assert.assertEquals;
 import static ua.timan.invoice.test.TestDataFactory.createPackingList;
-
-import java.io.IOException;
-
-import javax.transaction.Transactional;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ua.timan.invoice.domain.PackingList;
 
-public class PackingListRepositoryTest extends AbstractRepositoryTest {
+public class PackingListRepositoryTest extends AbstractRepositoryTest<PackingList> {
 
-    private PackingList plEntity;
-
-    @Autowired
-    private PackingListRepository plRepository;
-
-    @Before
-    public void setUpPackingList() throws IOException {
-        plEntity = createPackingList();
-    }
-
-    @Test
-    @Transactional
-    public void shouldSaveAndGetPackingListEntity() {
-        plRepository.save(plEntity);
-        PackingList result = plRepository.findOne(plEntity.getId());
-        assertEquals(plEntity, result);
+    @Override
+    protected PackingList createEntity() throws Exception {
+        return createPackingList();
     }
 }

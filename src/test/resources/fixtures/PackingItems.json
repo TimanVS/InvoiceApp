@@ -35,7 +35,7 @@
   "id" : 13,
   "product" : {
     "id" : 4,
-    "barcode" : "01456856",
+    "barcode" : "401456856",
     "name" : "Сигареты Marlboro",
     "group" : {
       "id" : 3,
