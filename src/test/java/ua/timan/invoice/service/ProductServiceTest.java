@@ -12,11 +12,13 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.domain.Product;
 import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.test.AbstractSpringTest;
 import ua.timan.invoice.test.TestDataFactory;
 
+@Slf4j
 public class ProductServiceTest extends AbstractSpringTest {
 
 	@Autowired
@@ -55,8 +57,14 @@ public class ProductServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
-	public void shouldUpdateProduct() {
-
+	public void shouldUpdateProduct() throws IOException {
+		Product product = extractLastProduct();
+		log.info(product.toString());
+		product.setName("Минтай с/м Аргентина");
+		productService.updateProduct(product);
+		log.info(product.toString());
+		
+		
 	}
 
 }
