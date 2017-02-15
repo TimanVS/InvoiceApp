@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
@@ -51,6 +52,10 @@ public abstract class AbstractRepositoryTest<E extends IdAware> extends Abstract
     @Before
     public final void setUp() throws Exception {
         entity = createEntity();
+    }
+
+    protected int getExistenId() {
+        return new Random().nextInt((int) repository.count()) + 1;
     }
 
     @Test
