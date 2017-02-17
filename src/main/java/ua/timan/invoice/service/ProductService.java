@@ -16,6 +16,8 @@ import ua.timan.invoice.repository.ProductRepository;
 @Service
 public class ProductService {
 
+	private static final int DEFAULT_ID = Integer.MIN_VALUE;
+
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
 	private ProductRepository productRepository;
@@ -28,6 +30,7 @@ public class ProductService {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null Product is expected!");
 		}
+		arg0.setId(DEFAULT_ID);
 		return saveProduct(arg0);
 	}
 
@@ -54,17 +57,12 @@ public class ProductService {
 
 	private Product saveProduct(Product arg0) {
 		Iterable<Product> products = productRepository.findByBarcode(arg0.getBarcode());
-		// В случае изменения существующего продукта планирую задействовать
-		// метод
-		// update() напрямую в обход saveProduct
 		for (Product product : products) {
-			if (product.getBarcode().equals(arg0.getBarcode())) {
-				throw new IllegalArgumentException("Such product already exists!");
+			if (product.getId() != arg0.getId()) {
+				throw new IllegalArgumentException("Other product with the same barcode already exists!");
 			}
 		}
-		// TODO arg0.getGroup() может дать null. Добавь проверку.
-		// Добавил
-		if (!productGroupRepository.exists(arg0.getGroup().getId()) || (arg0.getGroup() == null)) {
+		if (arg0.getGroup() == null || !productGroupRepository.exists(arg0.getGroup().getId())) {
 			throw new IllegalArgumentException("No such product group!");
 		}
 		return productRepository.save(arg0);
@@ -82,12 +80,12 @@ public class ProductService {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null Product is expected!");
 		}
-		
-		 if (!productRepository.exists(arg0.getId())) { throw new
-		 IllegalArgumentException("Product with id " + arg0.getId() +
-		 " doesn't exist!"); }
-		 
-		return productRepository.save(arg0);
+
+		if (!productRepository.exists(arg0.getId())) {
+			throw new IllegalArgumentException("Product with id " + arg0.getId() + " doesn't exist!");
+		}
+
+		return saveProduct(arg0);
 	}
 
 	public ProductGroup updateProductGroup(ProductGroup arg0) {
