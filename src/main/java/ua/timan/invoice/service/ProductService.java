@@ -82,11 +82,11 @@ public class ProductService {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null Product is expected!");
 		}
-		/*
-		 * if (!productRepository.exists(arg0.getId())) { throw new
-		 * IllegalArgumentException("Product with id " + arg0.getId() +
-		 * " doesn't exist!"); }
-		 */
+		
+		 if (!productRepository.exists(arg0.getId())) { throw new
+		 IllegalArgumentException("Product with id " + arg0.getId() +
+		 " doesn't exist!"); }
+		 
 		return productRepository.save(arg0);
 	}
 

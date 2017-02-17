@@ -2,18 +2,36 @@ package ua.timan.invoice.service;
 
 import java.util.List;
 
-import ua.timan.invoice.domain.PackingList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import lombok.NonNull;
+import lombok.Setter;
+import ua.timan.invoice.domain.PackingList;
+import ua.timan.invoice.repository.PackingItemRepository;
+import ua.timan.invoice.repository.PackingListRepository;
+
+@Service
 public class PackingListService {
 
-	public PackingList create(PackingList arg0) {
-		// TODO: 1. add unique id   Решение: @GeneratedValue(strategy = GenerationType.IDENTITY)
-		return save(arg0);
+	@Setter(onMethod = @__(@Autowired))
+	@NonNull
+	private PackingListRepository pLRepository;
+
+	@Setter(onMethod = @__(@Autowired))
+	@NonNull
+	private PackingItemRepository pIGroupRepository;
+
+	public PackingList createPackingList(PackingList arg0) {
+		if (arg0 == null) {
+			throw new IllegalArgumentException("Not null PackingList is expected!");
+		}
+		return savePackingList(arg0);
 	}
 
-	public PackingList save(PackingList arg0) {
+	public PackingList savePackingList(PackingList arg0) {
 		// TODO: store to DB
-		return arg0;
+		return pLRepository.save(arg0);
 	}
 
 	public PackingList get(int id) {
@@ -29,10 +47,10 @@ public class PackingListService {
 	}
 
 	public PackingList update(PackingList arg0) {
-		PackingList value = get(arg0.getId());
+		if (arg0 == null) {
+			throw new IllegalArgumentException("Not null Product is expected!");
+		}
 
-		// TODO: Update fields except id with values from arg0.
-
-		return save(value);
+		return savePackingList(arg0);
 	}
 }
