@@ -1,3 +1,4 @@
+
 INSERT INTO STORAGE (ID, NAME) VALUES(1, 'Центральный склад');
 INSERT INTO STORAGE (ID, NAME) VALUES(2, 'Симиренко');
 INSERT INTO STORAGE (ID, NAME) VALUES(3, 'Копыловская');

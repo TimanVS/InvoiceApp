@@ -48,7 +48,7 @@ public class ProductService {
 
 		Iterable<ProductGroup> productGroups = productGroupRepository.findByName(arg0.getName());
 		for (ProductGroup group : productGroups) {
-			if (group.getName().equals(arg0.getName())) {
+			if (group.getId() != (arg0.getId())) {
 				throw new IllegalArgumentException("Such product group already exists!");
 			}
 		}

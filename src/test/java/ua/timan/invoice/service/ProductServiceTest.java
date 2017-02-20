@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static ua.timan.invoice.test.TestDataFactory.createProduct;
 import static ua.timan.invoice.test.TestDataFactory.createProducts;
 import static ua.timan.invoice.test.TestDataFactory.extractLastProduct;
 
@@ -13,13 +14,12 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.domain.Product;
 import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.test.AbstractSpringTest;
 import ua.timan.invoice.test.TestDataFactory;
 
-@Slf4j
+
 public class ProductServiceTest extends AbstractSpringTest {
 
 	public static final int EXISTEN_PRODUCT_ID = 5;
@@ -37,6 +37,13 @@ public class ProductServiceTest extends AbstractSpringTest {
 			productService.createProduct(product);
 		}
 
+	}
+	
+	@Test
+	public void shouldCreateProduct() throws IOException {
+		Product product = createProduct();
+		Product result = productService.createProduct(product);
+		assertEquals(product, result);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

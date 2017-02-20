@@ -10,9 +10,13 @@ import lombok.Setter;
 import ua.timan.invoice.domain.PackingList;
 import ua.timan.invoice.repository.PackingItemRepository;
 import ua.timan.invoice.repository.PackingListRepository;
+import ua.timan.invoice.repository.ProviderRepository;
+import ua.timan.invoice.repository.StorageRepository;
 
 @Service
 public class PackingListService {
+
+	private static final int DEFAULT_ID = Integer.MIN_VALUE;
 
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
@@ -20,17 +24,31 @@ public class PackingListService {
 
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
-	private PackingItemRepository pIGroupRepository;
+	private PackingItemRepository pIRepository;
+	
+	@Setter(onMethod = @__(@Autowired))
+	@NonNull
+	private ProviderRepository providerRepository;
+	
+	@Setter(onMethod = @__(@Autowired))
+	@NonNull
+	private StorageRepository storageRepository;
 
 	public PackingList createPackingList(PackingList arg0) {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null PackingList is expected!");
 		}
+		arg0.setId(DEFAULT_ID);
 		return savePackingList(arg0);
 	}
 
 	public PackingList savePackingList(PackingList arg0) {
-		// TODO: store to DB
+		if (arg0.getProvider() == null || !providerRepository.exists(arg0.getProvider().getId())){
+			throw new IllegalArgumentException("No such provider!");
+		}
+		if (arg0.getStore() == null || !storageRepository.exists(arg0.getStore().getId())){
+			throw new IllegalArgumentException("No such storage!");
+		}
 		return pLRepository.save(arg0);
 	}
 
