@@ -8,7 +8,9 @@ import java.io.IOException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ua.timan.invoice.domain.PackingItem;
 import ua.timan.invoice.domain.PackingList;
+import ua.timan.invoice.test.TestDataFactory;
 
 public class PackingListServiceTest {
 	
@@ -21,6 +23,13 @@ public class PackingListServiceTest {
 		PackingList result = pLService.createPackingList(pL);
 		assertEquals(pL, result);
 		
+	}
+	
+	@Test
+	public void shouldCratePackingItem() throws IOException {
+		PackingItem pI = TestDataFactory.createPackingItem();
+		PackingItem result = pLService.createPackingItem(pI);
+		assertEquals(pI, result);
 	}
 
 }
