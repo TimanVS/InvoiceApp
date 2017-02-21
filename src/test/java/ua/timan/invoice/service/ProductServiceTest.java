@@ -43,6 +43,7 @@ public class ProductServiceTest extends AbstractSpringTest {
 	public void shouldCreateProduct() throws IOException {
 		Product product = createProduct();
 		Product result = productService.createProduct(product);
+		product.setId(result.getId());
 		assertEquals(product, result);
 	}
 
