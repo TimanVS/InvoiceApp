@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,16 +21,16 @@ import lombok.NoArgsConstructor;
 @Entity
 public class PackingList implements IdAware {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private LocalDate issueDate;
-    @ManyToOne
-    private Provider provider;
-    @ManyToOne
-    private Storage store;
-    @ManyToMany
-    private List<PackingItem> items;
-    private String comment;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private LocalDate issueDate;
+	@ManyToOne
+	private Provider provider;
+	@ManyToOne
+	private Storage store;
+	@ManyToMany
+	private List<PackingItem> items;
+	private String comment;
 
 }

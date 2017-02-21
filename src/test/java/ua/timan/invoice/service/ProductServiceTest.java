@@ -3,8 +3,8 @@ package ua.timan.invoice.service;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-import static ua.timan.invoice.test.TestDataFactory.createProduct;
 import static ua.timan.invoice.test.TestDataFactory.createProducts;
 import static ua.timan.invoice.test.TestDataFactory.extractLastProduct;
 
@@ -19,10 +19,10 @@ import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.test.AbstractSpringTest;
 import ua.timan.invoice.test.TestDataFactory;
 
-
 public class ProductServiceTest extends AbstractSpringTest {
 
 	public static final int EXISTEN_PRODUCT_ID = 5;
+	public static final int DELETED_PRODUCT_ID = 6;
 	@Autowired
 	private ProductService productService;
 
@@ -37,14 +37,6 @@ public class ProductServiceTest extends AbstractSpringTest {
 			productService.createProduct(product);
 		}
 
-	}
-	
-	@Test
-	public void shouldCreateProduct() throws IOException {
-		Product product = createProduct();
-		Product result = productService.createProduct(product);
-		product.setId(result.getId());
-		assertEquals(product, result);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -65,6 +57,12 @@ public class ProductServiceTest extends AbstractSpringTest {
 		List<Product> list = productService.getAllProducts();
 		assertThat(list, not(emptyIterable()));
 	}
+	
+	@Test
+	public void shouldGetAllProductGroups() {
+		List<ProductGroup> list = productService.getAllProductGroups();
+		assertThat(list, not(emptyIterable()));
+	}
 
 	@Test
 	public void shouldGetAndUpdateProduct() throws IOException {
@@ -73,6 +71,27 @@ public class ProductServiceTest extends AbstractSpringTest {
 		Product result = productService.updateProduct(product);
 
 		assertEquals(product, result);
+	}
+	
+	@Test
+	public void shouldGetAndUpdateProductGroup() throws IOException {
+		ProductGroup group = productService.getProductGroup(EXISTEN_PRODUCT_ID);
+		group.setName("Химия");
+		ProductGroup result = productService.updateProductGroup(group);
+
+		assertEquals(group, result);
+	}
+	
+	@Test
+	public void shouldDeleteAndGetProduct() {
+		productService.deleteProduct(DELETED_PRODUCT_ID);
+		assertNull(productService.getProduct(DELETED_PRODUCT_ID));
+	}
+	
+	@Test
+	public void shouldDeleteAndGetProductGroup() {
+		productService.deleteProductGroup(DELETED_PRODUCT_ID);
+		assertNull(productService.getProductGroup(DELETED_PRODUCT_ID));
 	}
 
 }

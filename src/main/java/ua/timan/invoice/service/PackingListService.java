@@ -1,5 +1,6 @@
 package ua.timan.invoice.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,16 +73,35 @@ public class PackingListService {
 	}
 	
 
-	public PackingList get(int id) {
-		return null;
+	public PackingList getPackingList(int id) {
+		return pLRepository.findOne(id);
+	}
+	
+	public PackingItem getPackingItem(int id) {
+		return pIRepository.findOne(id);
 	}
 
-	public List<PackingList> getAll(long offset, long size, boolean asc) {
-		return null;
+	public List<PackingList> getAllPackingLists() {
+		List<PackingList> list = new ArrayList<PackingList>();
+		Iterable<PackingList> register = pLRepository.findAll();
+		for (PackingList pList: register){
+			list.add(pList);
+		}
+		return list;
 	}
+	
 
-	public void delete(int id) {
-
+	public void deletePackingList(int id) {
+		PackingList entity = getPackingList(id);
+		List<PackingItem> items = entity.getItems();
+		for (PackingItem item: items){
+			deletePackingItem(item.getId());
+		}
+		pLRepository.delete(id);
+	}
+	
+	public void deletePackingItem(int id) {
+		pIRepository.delete(id);
 	}
 
 	public PackingList update(PackingList arg0) {
