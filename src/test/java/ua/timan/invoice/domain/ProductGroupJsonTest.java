@@ -12,10 +12,9 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import lombok.extern.slf4j.Slf4j;
-import ua.timan.invoice.test.AbstractSpringTest;
 
 @Slf4j
-public class ProductGroupJsonTest extends AbstractSpringTest {
+public class ProductGroupJsonTest {
 
 	@Test
 	public void shouldConvertProductGroupToJson() throws JsonProcessingException {

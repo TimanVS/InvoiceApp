@@ -54,7 +54,6 @@ public class PackingService {
 		return savePackingItem(arg0);
 	}
 
-	@Transactional
 	public PackingList savePackingList(PackingList arg0) {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null PackingList is expected!");
