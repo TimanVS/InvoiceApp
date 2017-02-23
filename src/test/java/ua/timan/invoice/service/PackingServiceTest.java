@@ -17,8 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ua.timan.invoice.domain.PackingItem;
 import ua.timan.invoice.domain.PackingList;
+import ua.timan.invoice.domain.Product;
+import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.domain.Provider;
 import ua.timan.invoice.domain.Storage;
+import ua.timan.invoice.domain.enums.Measure;
 import ua.timan.invoice.test.AbstractSpringTest;
 
 public class PackingServiceTest extends AbstractSpringTest {
@@ -55,6 +58,12 @@ public class PackingServiceTest extends AbstractSpringTest {
 		entity.setId(result.getId());
 		assertEquals(entity, result);
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreatePackingListWithNullValue() {
+		PackingList pList = null;
+		service.createPackingList(pList);
+	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotCreatePackingListWithUnknownProvider() {
@@ -62,12 +71,21 @@ public class PackingServiceTest extends AbstractSpringTest {
 		pList.setProvider(new Provider(20, "New provider"));
 		service.createPackingList(pList);
 	}
+	
 
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotCreatePackingListWithUnknownStorage() {
 		PackingList pList = new PackingList();
 		pList.setStore(new Storage(20, "New storage"));
 		service.createPackingList(pList);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreatePackingItemWithUnknownProduct() {
+		PackingItem item = new PackingItem();
+		ProductGroup group = new ProductGroup();
+		item.setProduct(new Product(20, "123456789", "New product", group, Measure.PIECE));
+		service.createPackingItem(item);
 	}
 
 	@Test

@@ -34,6 +34,22 @@ public class ProductService {
 		return saveProduct(arg0);
 	}
 
+	private Product saveProduct(Product arg0) {
+		Iterable<Product> products = productRepository.findByBarcode(arg0.getBarcode());
+		for (Product product : products) {
+			if (product.getId() != arg0.getId()) {
+				throw new IllegalArgumentException("Other product with the same barcode already exists!");
+			}
+		}
+		if (arg0.getGroup() == null || !productGroupRepository.exists(arg0.getGroup().getId())) {
+			throw new IllegalArgumentException("No such product group!");
+		}
+		if (arg0.getBarcode() == null) {
+			throw new IllegalArgumentException("Not null barcode is expected!");
+		}
+		return productRepository.save(arg0);
+	}
+
 	public ProductGroup createProductGroup(ProductGroup arg0) {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null ProductGroup is expected!");
@@ -53,19 +69,6 @@ public class ProductService {
 			}
 		}
 		return productGroupRepository.save(arg0);
-	}
-
-	private Product saveProduct(Product arg0) {
-		Iterable<Product> products = productRepository.findByBarcode(arg0.getBarcode());
-		for (Product product : products) {
-			if (product.getId() != arg0.getId()) {
-				throw new IllegalArgumentException("Other product with the same barcode already exists!");
-			}
-		}
-		if (arg0.getGroup() == null || !productGroupRepository.exists(arg0.getGroup().getId())) {
-			throw new IllegalArgumentException("No such product group!");
-		}
-		return productRepository.save(arg0);
 	}
 
 	public Product getProduct(int id) {
@@ -103,6 +106,11 @@ public class ProductService {
 	}
 
 	public void deleteProductGroup(int id) {
+		Iterable<Product> products = productRepository.findByGroup(productGroupRepository.findOne(id));
+		if (products.iterator().hasNext()) {
+			throw new IllegalArgumentException(
+					"It's impossible to remove the group because of the presence in it of the goods!");
+		}
 		productGroupRepository.delete(id);
 	}
 

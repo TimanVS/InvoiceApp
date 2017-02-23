@@ -27,5 +27,15 @@ public class ProductRepositoryTest extends AbstractRepositoryTest<Product> {
         assertThat(result, not(emptyIterable()));
         assertEquals(existenProduct, result.iterator().next());
     }
+    
+    @Test
+    public void shouldFindProductByGroup() {
+        Product existenProduct = repository.findOne(getExistenId());
+        assertNotNull(existenProduct);
+        Iterable<Product> result = ((ProductRepository) repository).findByGroup(existenProduct.getGroup());
+
+        assertThat(result, not(emptyIterable()));
+        assertEquals(existenProduct, result.iterator().next());
+    }
 
 }

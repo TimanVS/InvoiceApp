@@ -14,6 +14,7 @@ import ua.timan.invoice.domain.PackingItem;
 import ua.timan.invoice.domain.PackingList;
 import ua.timan.invoice.repository.PackingItemRepository;
 import ua.timan.invoice.repository.PackingListRepository;
+import ua.timan.invoice.repository.ProductRepository;
 import ua.timan.invoice.repository.ProviderRepository;
 import ua.timan.invoice.repository.StorageRepository;
 
@@ -37,6 +38,10 @@ public class PackingService {
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
 	private StorageRepository storageRepository;
+	
+	@Setter(onMethod = @__(@Autowired))
+	@NonNull
+	private ProductRepository productRepository;
 
 	public PackingList createPackingList(PackingList arg0) {
 		if (arg0 == null) {
@@ -70,6 +75,15 @@ public class PackingService {
 	public PackingItem savePackingItem(PackingItem arg0) {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null PackingItem is expected!");
+		}
+		if (arg0.getProduct() == null || !productRepository.exists(arg0.getProduct().getId())) {
+			throw new IllegalArgumentException("Not null product is expected or such product not exists!");
+		}
+		if (arg0.getQuantity() == null) {
+			throw new IllegalArgumentException("Not null quantity is expected!");
+		}
+		if (arg0.getPrice() == null) {
+			throw new IllegalArgumentException("Not null price is expected!");
 		}
 		return pIRepository.save(arg0);
 	}

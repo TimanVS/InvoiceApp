@@ -23,6 +23,7 @@ public class ProductServiceTest extends AbstractSpringTest {
 
 	public static final int EXISTEN_PRODUCT_ID = 5;
 	public static final int DELETED_PRODUCT_ID = 6;
+	public static final int UNDELETABLE_PRODUCTGROUP_ID = 3;
 	@Autowired
 	private ProductService productService;
 
@@ -40,6 +41,18 @@ public class ProductServiceTest extends AbstractSpringTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateProductWithNullValue() throws IOException {
+		Product product = null;
+		productService.createProduct(product);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateProductGroupWithNullValue() throws IOException {
+		ProductGroup group = null;
+		productService.createProductGroup(group);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotCreateProductWithExistentProduct() throws IOException {
 		Product product = extractLastProduct();
 		productService.createProduct(product);
@@ -52,12 +65,27 @@ public class ProductServiceTest extends AbstractSpringTest {
 		productService.createProduct(product);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateProductWithNullGroup() {
+		Product product = new Product();
+		product.setGroup(null);
+		productService.createProduct(product);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotCreateProductWithNullBarcode() {
+		Product product = new Product();
+		product.setGroup(new ProductGroup(3, "Табачные изделия"));
+		product.setBarcode(null);
+		productService.createProduct(product);
+	}
+
 	@Test
 	public void shouldGetAllProducts() {
 		List<Product> list = productService.getAllProducts();
 		assertThat(list, not(emptyIterable()));
 	}
-	
+
 	@Test
 	public void shouldGetAllProductGroups() {
 		List<ProductGroup> list = productService.getAllProductGroups();
@@ -72,7 +100,7 @@ public class ProductServiceTest extends AbstractSpringTest {
 
 		assertEquals(product, result);
 	}
-	
+
 	@Test
 	public void shouldGetAndUpdateProductGroup() throws IOException {
 		ProductGroup group = productService.getProductGroup(EXISTEN_PRODUCT_ID);
@@ -81,17 +109,22 @@ public class ProductServiceTest extends AbstractSpringTest {
 
 		assertEquals(group, result);
 	}
-	
+
 	@Test
 	public void shouldDeleteAndGetProduct() {
 		productService.deleteProduct(DELETED_PRODUCT_ID);
 		assertNull(productService.getProduct(DELETED_PRODUCT_ID));
 	}
-	
+
 	@Test
 	public void shouldDeleteAndGetProductGroup() {
 		productService.deleteProductGroup(DELETED_PRODUCT_ID);
 		assertNull(productService.getProductGroup(DELETED_PRODUCT_ID));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldNotDeleteProductGroupIfProductContainsIt() {
+		productService.deleteProductGroup(UNDELETABLE_PRODUCTGROUP_ID);
 	}
 
 }
