@@ -26,8 +26,8 @@ import ua.timan.invoice.test.AbstractSpringTest;
 
 public class PackingServiceTest extends AbstractSpringTest {
 
-	public static final int EXISTEN_ID = 4;
-	public static final int DELETED_ID = 3;
+	public static final int EXISTEN_ID = 5;
+	public static final int DELETED_ID = 6;
 
 	@Autowired
 	private PackingService service;
@@ -58,7 +58,7 @@ public class PackingServiceTest extends AbstractSpringTest {
 		entity.setId(result.getId());
 		assertEquals(entity, result);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotCreatePackingListWithNullValue() {
 		PackingList pList = null;
@@ -71,7 +71,6 @@ public class PackingServiceTest extends AbstractSpringTest {
 		pList.setProvider(new Provider(20, "New provider"));
 		service.createPackingList(pList);
 	}
-	
 
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotCreatePackingListWithUnknownStorage() {
@@ -79,7 +78,7 @@ public class PackingServiceTest extends AbstractSpringTest {
 		pList.setStore(new Storage(20, "New storage"));
 		service.createPackingList(pList);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotCreatePackingItemWithUnknownProduct() {
 		PackingItem item = new PackingItem();
@@ -95,15 +94,30 @@ public class PackingServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
+	public void shouldGetAllPackingItems() {
+		List<PackingList> list = service.getAllPackingLists();
+		assertThat(list, not(emptyIterable()));
+	}
+
+	@Test
 	public void shouldDeleteAndGetPackingList() {
 		service.deletePackingList(DELETED_ID);
 		assertNull(service.getPackingList(DELETED_ID));
 	}
 
 	@Test
-	public void shouldDeleteAndGetProductItem() {
+	public void shouldDeleteAndGetPackingItem() {
 		service.deletePackingItem(DELETED_ID);
 		assertNull(service.getPackingItem(DELETED_ID));
+	}
+
+	@Test
+	public void shouldGetAndUpdatePackingList() throws IOException {
+		PackingList pList = service.getPackingList(EXISTEN_ID);
+		pList.setProvider(new Provider(2, "Свиточ"));
+		PackingList result = service.updatePackingList(pList);
+
+		assertEquals(pList, result);
 	}
 
 }

@@ -38,7 +38,7 @@ public class PackingService {
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
 	private StorageRepository storageRepository;
-	
+
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
 	private ProductRepository productRepository;
@@ -105,6 +105,15 @@ public class PackingService {
 		return list;
 	}
 
+	public List<PackingItem> getAllPackingItems() {
+		List<PackingItem> list = new ArrayList<PackingItem>();
+		Iterable<PackingItem> register = pIRepository.findAll();
+		for (PackingItem pList : register) {
+			list.add(pList);
+		}
+		return list;
+	}
+
 	@Transactional
 	public void deletePackingList(int id) {
 		PackingList entity = getPackingList(id);
@@ -119,9 +128,14 @@ public class PackingService {
 		pIRepository.delete(id);
 	}
 
-	public PackingList update(PackingList arg0) {
+	@Transactional
+	public PackingList updatePackingList(PackingList arg0) {
 		if (arg0 == null) {
-			throw new IllegalArgumentException("Not null Product is expected!");
+			throw new IllegalArgumentException("Not null PackingList is expected!");
+		}
+
+		if (!pLRepository.exists(arg0.getId())) {
+			throw new IllegalArgumentException("PackingList with id " + arg0.getId() + " doesn't exist!");
 		}
 
 		return savePackingList(arg0);
