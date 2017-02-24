@@ -7,7 +7,7 @@ import ua.timan.invoice.domain.ProductGroup;
 
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 
-    Iterable<Product> findByBarcode(String barcode);
-    
-    Iterable<Product> findByGroup(ProductGroup group);
+	Iterable<Product> findByBarcode(String barcode);
+
+	Iterable<Product> findByGroup(ProductGroup group);
 }

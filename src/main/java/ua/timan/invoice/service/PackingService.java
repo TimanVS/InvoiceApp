@@ -59,10 +59,9 @@ public class PackingService {
 		return savePackingItem(arg0);
 	}
 
-	public PackingList savePackingList(PackingList arg0) {
-		if (arg0 == null) {
-			throw new IllegalArgumentException("Not null PackingList is expected!");
-		}
+	private PackingList savePackingList(PackingList arg0) {
+		// TODO мы договаривались, что ты в StaticService сделаешь методы
+		// providerExists(id) и storageExists(id).
 		if (arg0.getProvider() == null || !providerRepository.exists(arg0.getProvider().getId())) {
 			throw new IllegalArgumentException("No such provider!");
 		}
@@ -72,10 +71,7 @@ public class PackingService {
 		return pLRepository.save(arg0);
 	}
 
-	public PackingItem savePackingItem(PackingItem arg0) {
-		if (arg0 == null) {
-			throw new IllegalArgumentException("Not null PackingItem is expected!");
-		}
+	private PackingItem savePackingItem(PackingItem arg0) {
 		if (arg0.getProduct() == null || !productRepository.exists(arg0.getProduct().getId())) {
 			throw new IllegalArgumentException("Not null product is expected or such product not exists!");
 		}
@@ -88,6 +84,7 @@ public class PackingService {
 		return pIRepository.save(arg0);
 	}
 
+	@Transactional
 	public PackingList getPackingList(int id) {
 		return pLRepository.findOne(id);
 	}
@@ -99,6 +96,8 @@ public class PackingService {
 	public List<PackingList> getAllPackingLists() {
 		List<PackingList> list = new ArrayList<PackingList>();
 		Iterable<PackingList> register = pLRepository.findAll();
+		// TODO вынести подобные преобразования из Iterable в List в отдельный
+		// метод
 		for (PackingList pList : register) {
 			list.add(pList);
 		}
@@ -108,6 +107,8 @@ public class PackingService {
 	public List<PackingItem> getAllPackingItems() {
 		List<PackingItem> list = new ArrayList<PackingItem>();
 		Iterable<PackingItem> register = pIRepository.findAll();
+		// TODO вынести подобные преобразования из Iterable в List в отдельный
+		// метод
 		for (PackingItem pList : register) {
 			list.add(pList);
 		}
@@ -140,4 +141,5 @@ public class PackingService {
 
 		return savePackingList(arg0);
 	}
+
 }

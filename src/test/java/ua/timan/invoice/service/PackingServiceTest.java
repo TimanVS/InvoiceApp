@@ -12,6 +12,8 @@ import static ua.timan.invoice.test.TestDataFactory.createPackingLists;
 import java.io.IOException;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -106,12 +108,17 @@ public class PackingServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
+	// TODO ошибка возникает потому что ты УДАЛИЛ и потом пробуешь получить этот
+	// же объект. БД возвращает ошибку, что элемент не найден. Нужно
+	// обрабатывать ошибку. В идеале - написать свои ошибки типа
+	// EntityNotFountException и возвращать их.
 	public void shouldDeleteAndGetPackingItem() {
 		service.deletePackingItem(DELETED_ID);
 		assertNull(service.getPackingItem(DELETED_ID));
 	}
 
 	@Test
+	@Transactional
 	public void shouldGetAndUpdatePackingList() throws IOException {
 		PackingList pList = service.getPackingList(EXISTEN_ID);
 		pList.setProvider(new Provider(2, "Свиточ"));
