@@ -131,5 +131,12 @@ public class ProductService {
 		}
 		return listGroup;
 	}
+	
+	public boolean existsProduct(int id){
+		if (!productRepository.exists(id)){
+			return false;
+		}
+		return true;
+	}
 
 }

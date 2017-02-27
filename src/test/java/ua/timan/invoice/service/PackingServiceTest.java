@@ -1,5 +1,6 @@
 package ua.timan.invoice.service;
 
+import static java.time.LocalDate.of;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
 import static org.junit.Assert.assertEquals;
@@ -10,6 +11,7 @@ import static ua.timan.invoice.test.TestDataFactory.createPackingList;
 import static ua.timan.invoice.test.TestDataFactory.createPackingLists;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,6 +19,7 @@ import javax.transaction.Transactional;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.domain.PackingItem;
 import ua.timan.invoice.domain.PackingList;
 import ua.timan.invoice.domain.Product;
@@ -26,6 +29,7 @@ import ua.timan.invoice.domain.Storage;
 import ua.timan.invoice.domain.enums.Measure;
 import ua.timan.invoice.test.AbstractSpringTest;
 
+@Slf4j
 public class PackingServiceTest extends AbstractSpringTest {
 
 	public static final int EXISTEN_ID = 5;
@@ -108,10 +112,6 @@ public class PackingServiceTest extends AbstractSpringTest {
 	}
 
 	@Test
-	// TODO ошибка возникает потому что ты УДАЛИЛ и потом пробуешь получить этот
-	// же объект. БД возвращает ошибку, что элемент не найден. Нужно
-	// обрабатывать ошибку. В идеале - написать свои ошибки типа
-	// EntityNotFountException и возвращать их.
 	public void shouldDeleteAndGetPackingItem() {
 		service.deletePackingItem(DELETED_ID);
 		assertNull(service.getPackingItem(DELETED_ID));
@@ -122,9 +122,22 @@ public class PackingServiceTest extends AbstractSpringTest {
 	public void shouldGetAndUpdatePackingList() throws IOException {
 		PackingList pList = service.getPackingList(EXISTEN_ID);
 		pList.setProvider(new Provider(2, "Свиточ"));
+		pList.setIssueDate(of(2017, 02, 24));
 		PackingList result = service.updatePackingList(pList);
 
 		assertEquals(pList, result);
+		log.info(result.toString());
+	}
+	
+	@Test
+	public void shouldGetAndUpdatePackingItem() throws IOException {
+		PackingItem item = service.getPackingItem(EXISTEN_ID);
+		item.setQuantity(BigDecimal.valueOf(8));
+		item.setSum(BigDecimal.valueOf(204));
+		PackingItem result = service.updatePackingItem(item);
+
+		assertEquals(item, result);
+		log.info(result.toString());
 	}
 
 }

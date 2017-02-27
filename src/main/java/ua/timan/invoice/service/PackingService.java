@@ -14,9 +14,6 @@ import ua.timan.invoice.domain.PackingItem;
 import ua.timan.invoice.domain.PackingList;
 import ua.timan.invoice.repository.PackingItemRepository;
 import ua.timan.invoice.repository.PackingListRepository;
-import ua.timan.invoice.repository.ProductRepository;
-import ua.timan.invoice.repository.ProviderRepository;
-import ua.timan.invoice.repository.StorageRepository;
 
 @Service
 public class PackingService {
@@ -33,15 +30,11 @@ public class PackingService {
 
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
-	private ProviderRepository providerRepository;
+	private StaticService staticService;
 
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
-	private StorageRepository storageRepository;
-
-	@Setter(onMethod = @__(@Autowired))
-	@NonNull
-	private ProductRepository productRepository;
+	private ProductService productService;
 
 	public PackingList createPackingList(PackingList arg0) {
 		if (arg0 == null) {
@@ -60,19 +53,18 @@ public class PackingService {
 	}
 
 	private PackingList savePackingList(PackingList arg0) {
-		// TODO мы договаривались, что ты в StaticService сделаешь методы
-		// providerExists(id) и storageExists(id).
-		if (arg0.getProvider() == null || !providerRepository.exists(arg0.getProvider().getId())) {
+
+		if (arg0.getProvider() == null || !staticService.existsProvider(arg0.getProvider().getId())) {
 			throw new IllegalArgumentException("No such provider!");
 		}
-		if (arg0.getStore() == null || !storageRepository.exists(arg0.getStore().getId())) {
+		if (arg0.getStore() == null || !staticService.existsStorage(arg0.getStore().getId())) {
 			throw new IllegalArgumentException("No such storage!");
 		}
 		return pLRepository.save(arg0);
 	}
 
 	private PackingItem savePackingItem(PackingItem arg0) {
-		if (arg0.getProduct() == null || !productRepository.exists(arg0.getProduct().getId())) {
+		if (arg0.getProduct() == null || !productService.existsProduct(arg0.getProduct().getId())) {
 			throw new IllegalArgumentException("Not null product is expected or such product not exists!");
 		}
 		if (arg0.getQuantity() == null) {
@@ -142,4 +134,17 @@ public class PackingService {
 		return savePackingList(arg0);
 	}
 
+	public PackingItem updatePackingItem(PackingItem arg0) {
+		if (arg0 == null) {
+			throw new IllegalArgumentException("Not null PackingItem is expected!");
+		}
+
+		if (!pIRepository.exists(arg0.getId())) {
+			throw new IllegalArgumentException("PackingItem with id " + arg0.getId() + " doesn't exist!");
+		}
+
+		return savePackingItem(arg0);
+	}
+
+	
 }
