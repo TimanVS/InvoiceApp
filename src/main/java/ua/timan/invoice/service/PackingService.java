@@ -1,6 +1,7 @@
 package ua.timan.invoice.service;
 
-import java.util.ArrayList;
+import static ua.timan.invoice.utils.InvoiceUtils.toList;
+
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -86,25 +87,11 @@ public class PackingService {
 	}
 
 	public List<PackingList> getAllPackingLists() {
-		List<PackingList> list = new ArrayList<PackingList>();
-		Iterable<PackingList> register = pLRepository.findAll();
-		// TODO вынести подобные преобразования из Iterable в List в отдельный
-		// метод
-		for (PackingList pList : register) {
-			list.add(pList);
-		}
-		return list;
+		return toList(pLRepository.findAll());
 	}
 
 	public List<PackingItem> getAllPackingItems() {
-		List<PackingItem> list = new ArrayList<PackingItem>();
-		Iterable<PackingItem> register = pIRepository.findAll();
-		// TODO вынести подобные преобразования из Iterable в List в отдельный
-		// метод
-		for (PackingItem pList : register) {
-			list.add(pList);
-		}
-		return list;
+		return toList(pIRepository.findAll());
 	}
 
 	@Transactional
@@ -146,5 +133,4 @@ public class PackingService {
 		return savePackingItem(arg0);
 	}
 
-	
 }

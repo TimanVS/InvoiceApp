@@ -1,6 +1,7 @@
 package ua.timan.invoice.service;
 
-import java.util.ArrayList;
+import static ua.timan.invoice.utils.InvoiceUtils.toList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,25 +116,15 @@ public class ProductService {
 	}
 
 	public List<Product> getAllProducts() {
-		List<Product> listProduct = new ArrayList<Product>();
-		Iterable<Product> products = productRepository.findAll();
-		for (Product product : products) {
-			listProduct.add(product);
-		}
-		return listProduct;
+		return toList(productRepository.findAll());
 	}
 
 	public List<ProductGroup> getAllProductGroups() {
-		List<ProductGroup> listGroup = new ArrayList<ProductGroup>();
-		Iterable<ProductGroup> groups = productGroupRepository.findAll();
-		for (ProductGroup group : groups) {
-			listGroup.add(group);
-		}
-		return listGroup;
+		return toList(productGroupRepository.findAll());
 	}
-	
-	public boolean existsProduct(int id){
-		if (!productRepository.exists(id)){
+
+	public boolean existsProduct(int id) {
+		if (!productRepository.exists(id)) {
 			return false;
 		}
 		return true;

@@ -10,12 +10,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ua.timan.invoice.domain.Storage;
+import ua.timan.invoice.test.AbstractSpringTest;
 
-public class StaticServiceTest {
-	
+public class StaticServiceTest extends AbstractSpringTest {
+
 	@Autowired
 	private StaticService staticService;
-	
+
 	@Test
 	public void shouldGetAllStorages() {
 		List<Storage> list = staticService.getAllStorages();
