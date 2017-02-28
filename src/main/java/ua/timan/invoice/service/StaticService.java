@@ -26,17 +26,11 @@ public class StaticService {
 	private StorageRepository storageRepository;
 
 	public boolean existsProvider(int id) {
-		if (!providerRepository.exists(id)) {
-			return false;
-		}
-		return true;
+		return providerRepository.exists(id);
 	}
 
 	public boolean existsStorage(int id) {
-		if (!storageRepository.exists(id)) {
-			return false;
-		}
-		return true;
+		return storageRepository.exists(id);
 	}
 
 	public Provider getProvider(int id) {

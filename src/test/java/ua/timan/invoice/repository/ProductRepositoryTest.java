@@ -20,8 +20,9 @@ public class ProductRepositoryTest extends AbstractRepositoryTest<Product> {
 
 	@Test
 	public void shouldFindProductByBarcode() {
-		Product existenProduct = repository.findOne(getExistenId());
-		assertNotNull(existenProduct);
+		int existenId = 1;
+		Product existenProduct = repository.findOne(existenId);
+		assertNotNull("Get null Product for id " + existenId, existenProduct);
 		Iterable<Product> result = ((ProductRepository) repository).findByBarcode(existenProduct.getBarcode());
 
 		assertThat(result, not(emptyIterable()));
@@ -30,8 +31,9 @@ public class ProductRepositoryTest extends AbstractRepositoryTest<Product> {
 
 	@Test
 	public void shouldFindProductByGroup() {
-		Product existenProduct = repository.findOne(getExistenId());
-		assertNotNull(existenProduct);
+		int existenId = 3;
+		Product existenProduct = repository.findOne(existenId);
+		assertNotNull("Get null Product for id " + existenId, existenProduct);
 		Iterable<Product> result = ((ProductRepository) repository).findByGroup(existenProduct.getGroup());
 
 		assertThat(result, not(emptyIterable()));

@@ -23,11 +23,11 @@ public class PackingService {
 
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
-	private PackingListRepository pLRepository;
+	private PackingListRepository listRepository;
 
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
-	private PackingItemRepository pIRepository;
+	private PackingItemRepository itemRepository;
 
 	@Setter(onMethod = @__(@Autowired))
 	@NonNull
@@ -54,14 +54,13 @@ public class PackingService {
 	}
 
 	private PackingList savePackingList(PackingList arg0) {
-
 		if (arg0.getProvider() == null || !staticService.existsProvider(arg0.getProvider().getId())) {
 			throw new IllegalArgumentException("No such provider!");
 		}
 		if (arg0.getStore() == null || !staticService.existsStorage(arg0.getStore().getId())) {
 			throw new IllegalArgumentException("No such storage!");
 		}
-		return pLRepository.save(arg0);
+		return listRepository.save(arg0);
 	}
 
 	private PackingItem savePackingItem(PackingItem arg0) {
@@ -74,24 +73,24 @@ public class PackingService {
 		if (arg0.getPrice() == null) {
 			throw new IllegalArgumentException("Not null price is expected!");
 		}
-		return pIRepository.save(arg0);
+		return itemRepository.save(arg0);
 	}
 
 	@Transactional
 	public PackingList getPackingList(int id) {
-		return pLRepository.findOne(id);
+		return listRepository.findOne(id);
 	}
 
 	public PackingItem getPackingItem(int id) {
-		return pIRepository.findOne(id);
+		return itemRepository.findOne(id);
 	}
 
 	public List<PackingList> getAllPackingLists() {
-		return toList(pLRepository.findAll());
+		return toList(listRepository.findAll());
 	}
 
 	public List<PackingItem> getAllPackingItems() {
-		return toList(pIRepository.findAll());
+		return toList(itemRepository.findAll());
 	}
 
 	@Transactional
@@ -101,11 +100,11 @@ public class PackingService {
 		for (PackingItem item : items) {
 			deletePackingItem(item.getId());
 		}
-		pLRepository.delete(id);
+		listRepository.delete(id);
 	}
 
 	public void deletePackingItem(int id) {
-		pIRepository.delete(id);
+		itemRepository.delete(id);
 	}
 
 	@Transactional
@@ -114,7 +113,7 @@ public class PackingService {
 			throw new IllegalArgumentException("Not null PackingList is expected!");
 		}
 
-		if (!pLRepository.exists(arg0.getId())) {
+		if (!listRepository.exists(arg0.getId())) {
 			throw new IllegalArgumentException("PackingList with id " + arg0.getId() + " doesn't exist!");
 		}
 
@@ -126,25 +125,19 @@ public class PackingService {
 			throw new IllegalArgumentException("Not null PackingItem is expected!");
 		}
 
-		if (!pIRepository.exists(arg0.getId())) {
+		if (!itemRepository.exists(arg0.getId())) {
 			throw new IllegalArgumentException("PackingItem with id " + arg0.getId() + " doesn't exist!");
 		}
 
 		return savePackingItem(arg0);
 	}
-	
+
 	public boolean existsPackingList(int id) {
-		if (!pLRepository.exists(id)) {
-			return false;
-		}
-		return true;
+		return listRepository.exists(id);
 	}
-	
+
 	public boolean existsPackingItem(int id) {
-		if (!pIRepository.exists(id)) {
-			return false;
-		}
-		return true;
+		return itemRepository.exists(id);
 	}
 
 }

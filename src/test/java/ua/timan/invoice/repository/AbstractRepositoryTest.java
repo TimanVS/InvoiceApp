@@ -5,8 +5,6 @@ import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-import java.util.Random;
-
 import javax.transaction.Transactional;
 
 import org.junit.Before;
@@ -29,10 +27,6 @@ public abstract class AbstractRepositoryTest<E extends IdAware> extends Abstract
 	@Before
 	public final void setUp() throws Exception {
 		entity = createEntity();
-	}
-
-	protected int getExistenId() {
-		return new Random().nextInt((int) repository.count()) + 1;
 	}
 
 	@Test

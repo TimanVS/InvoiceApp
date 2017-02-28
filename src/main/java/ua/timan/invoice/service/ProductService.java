@@ -36,6 +36,9 @@ public class ProductService {
 	}
 
 	private Product saveProduct(Product arg0) {
+		if (arg0.getBarcode() == null) {
+			throw new IllegalArgumentException("Not null barcode is expected!");
+		}
 		Iterable<Product> products = productRepository.findByBarcode(arg0.getBarcode());
 		for (Product product : products) {
 			if (product.getId() != arg0.getId()) {
@@ -44,9 +47,6 @@ public class ProductService {
 		}
 		if (arg0.getGroup() == null || !productGroupRepository.exists(arg0.getGroup().getId())) {
 			throw new IllegalArgumentException("No such product group!");
-		}
-		if (arg0.getBarcode() == null) {
-			throw new IllegalArgumentException("Not null barcode is expected!");
 		}
 		return productRepository.save(arg0);
 	}
@@ -62,10 +62,9 @@ public class ProductService {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null ProductGroup is expected!");
 		}
-
 		Iterable<ProductGroup> productGroups = productGroupRepository.findByName(arg0.getName());
 		for (ProductGroup group : productGroups) {
-			if (group.getId() != (arg0.getId())) {
+			if (group.getId() != arg0.getId()) {
 				throw new IllegalArgumentException("Such product group already exists!");
 			}
 		}
@@ -124,17 +123,11 @@ public class ProductService {
 	}
 
 	public boolean existsProduct(int id) {
-		if (!productRepository.exists(id)) {
-			return false;
-		}
-		return true;
+		return productRepository.exists(id);
 	}
 	
 	public boolean existsProductGroup(int id) {
-		if (!productGroupRepository.exists(id)) {
-			return false;
-		}
-		return true;
+		return productGroupRepository.exists(id);
 	}
 
 }
