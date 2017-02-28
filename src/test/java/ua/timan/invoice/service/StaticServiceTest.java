@@ -44,5 +44,15 @@ public class StaticServiceTest extends AbstractSpringTest {
 		Provider result = staticService.getProvider(EXISTEN_ID);
 		assertNotNull(result);
 	}
+	
+	@Test
+	public void shouldCheckExistingStorage(){
+		staticService.existsStorage(EXISTEN_ID);
+	}
+	
+	@Test
+	public void shouldCheckExistingProvider(){
+		staticService.existsProvider(EXISTEN_ID);
+	}
 
 }

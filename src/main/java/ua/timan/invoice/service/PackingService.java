@@ -132,5 +132,19 @@ public class PackingService {
 
 		return savePackingItem(arg0);
 	}
+	
+	public boolean existsPackingList(int id) {
+		if (!pLRepository.exists(id)) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean existsPackingItem(int id) {
+		if (!pIRepository.exists(id)) {
+			return false;
+		}
+		return true;
+	}
 
 }

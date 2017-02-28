@@ -23,7 +23,7 @@ public class ProductServiceTest extends AbstractSpringTest {
 
 	public static final int EXISTEN_PRODUCT_ID = 5;
 	public static final int DELETED_PRODUCT_ID = 6;
-	public static final int UNDELETABLE_PRODUCTGROUP_ID = 3;
+	public static final int UNDELETABLE_ID = 3;
 	@Autowired
 	private ProductService productService;
 
@@ -124,7 +124,17 @@ public class ProductServiceTest extends AbstractSpringTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotDeleteProductGroupIfProductContainsIt() {
-		productService.deleteProductGroup(UNDELETABLE_PRODUCTGROUP_ID);
+		productService.deleteProductGroup(UNDELETABLE_ID);
+	}
+	
+	@Test
+	public void shouldCheckExistingProduct(){
+		productService.existsProduct(UNDELETABLE_ID);
+	}
+	
+	@Test
+	public void shouldCheckExistingProductGroup(){
+		productService.existsProductGroup(UNDELETABLE_ID);
 	}
 
 }

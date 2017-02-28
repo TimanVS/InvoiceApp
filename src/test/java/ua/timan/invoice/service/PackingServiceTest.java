@@ -139,5 +139,15 @@ public class PackingServiceTest extends AbstractSpringTest {
 		assertEquals(item, result);
 		log.info(result.toString());
 	}
+	
+	@Test
+	public void shouldCheckExistingPackingList(){
+		service.existsPackingList(EXISTEN_ID);
+	}
+	
+	@Test
+	public void shouldCheckExistingPackingItem(){
+		service.existsPackingItem(EXISTEN_ID);
+	}
 
 }
