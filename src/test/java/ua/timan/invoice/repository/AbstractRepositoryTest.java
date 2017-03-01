@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.domain.IdAware;
 import ua.timan.invoice.test.AbstractSpringTest;
 
+@SuppressWarnings("rawtypes")
 @Slf4j
 public abstract class AbstractRepositoryTest<E extends IdAware> extends AbstractSpringTest {
 

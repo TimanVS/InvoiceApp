@@ -3,6 +3,7 @@ package ua.timan.invoice.domain;
 import static org.junit.Assert.assertNotNull;
 import static ua.timan.invoice.test.TestDataFactory.MAPPER;
 import static ua.timan.invoice.test.TestDataFactory.createPodam;
+import static ua.timan.invoice.test.TestDataFactory.getFixture;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
@@ -14,7 +15,6 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import lombok.extern.slf4j.Slf4j;
-import ua.timan.invoice.test.TestDataFactory;
 
 @Slf4j
 public abstract class AbstractJsonTest<T> {
@@ -47,7 +47,7 @@ public abstract class AbstractJsonTest<T> {
 
 	private String createJson() {
 		try {
-			return TestDataFactory.getFixture(entityClass.getSimpleName() + JSON_EXT);
+			return getFixture(entityClass.getSimpleName() + JSON_EXT);
 		} catch (IOException e) {
 			Assert.fail("Can't create fixture!");
 			return null;

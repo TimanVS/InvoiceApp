@@ -33,7 +33,7 @@ public final class TestDataFactory {
 	public static final String FIXTURES_PATH = "fixtures" + File.separator;
 
 	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
-
+	
 	static {
 		MAPPER.registerModule(new JSR310Module());
 	}
@@ -70,6 +70,8 @@ public final class TestDataFactory {
 	public static <T> T createPodam(Class<T> classT) {
 		return PODAM_FACTORY.manufacturePojo(classT);
 	}
+	
+	
 
 	public static List<Storage> createStorages() throws IOException {
 		return MAPPER.readValue(getFixture("Storages.json"),
@@ -136,4 +138,6 @@ public final class TestDataFactory {
 	public static <T> T getLastItem(List<T> list) {
         return list != null && !list.isEmpty() ? list.get(list.size() - 1) : null;
     }
+	
+	
 }
