@@ -19,7 +19,7 @@ import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.test.AbstractSpringTest;
 import ua.timan.invoice.test.TestDataFactory;
 
-public class ProductServiceTest extends AbstractSpringTest {
+public class ProductServiceTest<E> extends AbstractSpringTest<E> {
 
 	public static final int EXISTEN_PRODUCT_ID = 5;
 	public static final int DELETED_PRODUCT_ID = 6;
