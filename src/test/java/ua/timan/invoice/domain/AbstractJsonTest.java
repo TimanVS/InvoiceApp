@@ -1,6 +1,7 @@
 package ua.timan.invoice.domain;
 
 import static org.junit.Assert.assertNotNull;
+import static ua.timan.invoice.test.TestDataFactory.JSON_EXT;
 import static ua.timan.invoice.test.TestDataFactory.MAPPER;
 import static ua.timan.invoice.test.TestDataFactory.createPodam;
 import static ua.timan.invoice.test.TestDataFactory.getFixture;
@@ -18,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class AbstractJsonTest<T> {
-
-	public static final String JSON_EXT = ".json";
 
 	private T entity;
 
