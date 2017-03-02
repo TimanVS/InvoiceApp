@@ -2,11 +2,8 @@ package ua.timan.invoice.test;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Random;
 
@@ -22,6 +19,7 @@ import ua.timan.invoice.domain.Product;
 import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.domain.Provider;
 import ua.timan.invoice.domain.Storage;
+import ua.timan.invoice.utils.InvoiceUtils;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -34,39 +32,14 @@ public final class TestDataFactory {
 
 	public static final String FIXTURES_PATH = "fixtures" + File.separator;
 
-	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
-
 	static {
 		MAPPER.registerModule(new JSR310Module());
 	}
 
 	private static final PodamFactory PODAM_FACTORY = new PodamFactoryImpl();
 
-	public static InputStream getResourceAsStream(String fileName) throws IOException {
-		return TestDataFactory.class.getClassLoader().getResourceAsStream(fileName);
-	}
-
-	public static byte[] getResourceAsBytes(String fileName) throws IOException {
-		try (InputStream in = getResourceAsStream(fileName); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-			byte[] buffer = new byte[1024];
-			int length;
-			while ((length = in.read(buffer)) != -1) {
-				out.write(buffer, 0, length);
-			}
-			return out.toByteArray();
-		}
-	}
-
-	public static String getResourceAsString(String fileName, Charset charset) throws IOException {
-		return new String(getResourceAsBytes(fileName), charset);
-	}
-
-	public static String getResourceAsString(String fileName) throws IOException {
-		return getResourceAsString(fileName, DEFAULT_CHARSET);
-	}
-
 	public static String getFixture(String fileName) throws IOException {
-		return getResourceAsString(FIXTURES_PATH + fileName);
+		return InvoiceUtils.getResourceAsString(FIXTURES_PATH + fileName);
 	}
 
 	public static <T> T createPodam(Class<T> classT) {
