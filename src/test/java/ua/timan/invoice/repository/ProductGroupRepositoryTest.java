@@ -6,37 +6,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static ua.timan.invoice.test.TestDataFactory.createProductGroup;
 
-import java.io.IOException;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.domain.ProductGroup;
 
-@Slf4j
-public class ProductGroupRepositoryTest extends AbstractRepositoryTest {
+public class ProductGroupRepositoryTest extends AbstractRepositoryTest<ProductGroup> {
 
-	private ProductGroup groupEntity;
+	public static final String EXISTENT_NAME = "Кондитерские изделия";
 
-	@Autowired
-	private ProductGroupRepository groupRepository;
-
-	@Before
-	public void setUp() throws IOException {
-		groupEntity = createProductGroup();
+	@Override
+	protected ProductGroup createEntity() throws Exception {
+		return createProductGroup();
 	}
 
 	@Test
-	public void shouldSaveAndGetProductGroupEntity() {
-		groupRepository.save(groupEntity);
-		ProductGroup result = groupRepository.findOne(groupEntity.getId());
-		assertEquals(groupEntity, result);
-		log.info(result.toString());
+	public void shouldFindProductGroupByName() {
+		Iterable<ProductGroup> groups = ((ProductGroupRepository) repository).findByName(EXISTENT_NAME);
 
-		Iterable<ProductGroup> groups = groupRepository.findAll();
 		assertThat(groups, not(emptyIterable()));
+		for (ProductGroup group : groups) {
+			assertEquals(EXISTENT_NAME, group.getName());
+		}
 	}
 
 }

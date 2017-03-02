@@ -9,4 +9,5 @@ import ua.timan.web_static.ui.SampleWebStaticApplication;
 @ContextConfiguration(classes = SampleWebStaticApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public abstract class AbstractSpringTest {
+	
 }

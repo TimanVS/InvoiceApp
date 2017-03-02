@@ -28,6 +28,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @NoArgsConstructor(access = PRIVATE)
 public final class TestDataFactory {
 
+	public static final String JSON_EXT = ".json";
+
 	public static final ObjectMapper MAPPER = new ObjectMapper();
 
 	public static final String FIXTURES_PATH = "fixtures" + File.separator;
@@ -72,8 +74,7 @@ public final class TestDataFactory {
 	}
 
 	public static List<Storage> createStorages() throws IOException {
-		return MAPPER.readValue(getFixture("Storages.json"),
-				CollectionType.construct(List.class, SimpleType.construct(Storage.class)));
+		return createEntityList(Storage.class);
 	}
 
 	public static Storage createStorage() throws IOException {
@@ -81,8 +82,16 @@ public final class TestDataFactory {
 	}
 
 	public static List<ProductGroup> createProductGroups() throws IOException {
-		return MAPPER.readValue(getFixture("ProductGroups.json"),
-				CollectionType.construct(List.class, SimpleType.construct(ProductGroup.class)));
+		return createEntityList(ProductGroup.class);
+	}
+
+	private static <T> List<T> createEntityList(Class<T> clazz) throws IOException {
+		return MAPPER.readValue(getFixture(createPlural(clazz.getSimpleName()) + JSON_EXT),
+				CollectionType.construct(List.class, SimpleType.construct(clazz)));
+	}
+
+	private static String createPlural(String objectName) {
+		return objectName + "s";
 	}
 
 	public static ProductGroup createProductGroup() throws IOException {
@@ -90,8 +99,7 @@ public final class TestDataFactory {
 	}
 
 	public static List<Provider> createProviders() throws IOException {
-		return MAPPER.readValue(getFixture("Providers.json"),
-				CollectionType.construct(List.class, SimpleType.construct(Provider.class)));
+		return createEntityList(Provider.class);
 	}
 
 	public static Provider createProvider() throws IOException {
@@ -99,17 +107,19 @@ public final class TestDataFactory {
 	}
 
 	public static List<Product> createProducts() throws IOException {
-		return MAPPER.readValue(getFixture("Products.json"),
-				CollectionType.construct(List.class, SimpleType.construct(Product.class)));
+		return createEntityList(Product.class);
 	}
 
 	public static Product createProduct() throws IOException {
 		return getRandomItem(createProducts());
 	}
 
+	public static Product extractLastProduct() throws IOException {
+		return getLastItem(createProducts());
+	}
+
 	public static List<PackingItem> createPackingItems() throws IOException {
-		return MAPPER.readValue(getFixture("PackingItems.json"),
-				CollectionType.construct(List.class, SimpleType.construct(PackingItem.class)));
+		return createEntityList(PackingItem.class);
 	}
 
 	public static PackingItem createPackingItem() throws IOException {
@@ -117,15 +127,19 @@ public final class TestDataFactory {
 	}
 
 	public static List<PackingList> createPackingLists() throws IOException {
-		return MAPPER.readValue(getFixture("PackingLists.json"),
-				CollectionType.construct(List.class, SimpleType.construct(PackingList.class)));
+		return createEntityList(PackingList.class);
 	}
 
 	public static PackingList createPackingList() throws IOException {
 		return getRandomItem(createPackingLists());
 	}
 
-	private static <T> T getRandomItem(List<T> list) {
+	public static <T> T getRandomItem(List<T> list) {
 		return list.get(new Random().nextInt(list.size()));
 	}
+
+	public static <T> T getLastItem(List<T> list) {
+		return list != null && !list.isEmpty() ? list.get(list.size() - 1) : null;
+	}
+
 }
