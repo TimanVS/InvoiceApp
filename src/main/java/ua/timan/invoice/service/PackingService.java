@@ -1,5 +1,6 @@
 package ua.timan.invoice.service;
 
+import static java.time.LocalDate.now;
 import static ua.timan.invoice.utils.InvoiceUtils.toList;
 
 import java.util.List;
@@ -54,11 +55,12 @@ public class PackingService {
 	}
 
 	private PackingList savePackingList(PackingList arg0) {
+		arg0.setIssueDate(now());
 		if (arg0.getProvider() == null || !staticService.existsProvider(arg0.getProvider().getId())) {
-			throw new IllegalArgumentException("No such provider!");
+			throw new IllegalArgumentException("The object 'Provider' is not found!!");
 		}
 		if (arg0.getStore() == null || !staticService.existsStorage(arg0.getStore().getId())) {
-			throw new IllegalArgumentException("No such storage!");
+			throw new IllegalArgumentException("The object 'Storage' is not found!");
 		}
 		return listRepository.save(arg0);
 	}

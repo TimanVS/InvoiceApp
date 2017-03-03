@@ -1,6 +1,7 @@
 package ua.timan.invoice.service;
 
 import static java.time.LocalDate.of;
+import static java.time.LocalDate.now;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
 import static org.junit.Assert.assertEquals;
@@ -51,6 +52,7 @@ public class PackingServiceTest extends AbstractSpringTest {
 	public void shouldCreatePackingList() throws IOException {
 		PackingList entity = createPackingList();
 		PackingList result = service.createPackingList(entity);
+		
 
 		entity.setId(result.getId());
 		assertEquals(entity, result);
@@ -122,7 +124,7 @@ public class PackingServiceTest extends AbstractSpringTest {
 	public void shouldGetAndUpdatePackingList() throws IOException {
 		PackingList pList = service.getPackingList(EXISTEN_ID);
 		pList.setProvider(new Provider(2, "Свиточ"));
-		pList.setIssueDate(of(2017, 02, 24));
+		pList.setIssueDate(now());
 		PackingList result = service.updatePackingList(pList);
 
 		assertEquals(pList, result);
