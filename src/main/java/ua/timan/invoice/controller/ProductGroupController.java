@@ -39,12 +39,14 @@ public class ProductGroupController {
 		groupService.deleteProductGroup(id);
 	}
 	
-	@RequestMapping(value = ROOT_PATH + "/add/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = ROOT_PATH + "/add", method = RequestMethod.POST)
 	@ResponseBody
 	public ProductGroup addGroup(@ModelAttribute("group") ProductGroup group){
-		if (group.getId() == 0){
+		
+		if (!groupService.existsProduct(group.getId())){
 			groupService.createProductGroup(group);
 		}
+		
 		return groupService.updateProductGroup(group);
 	}
 
