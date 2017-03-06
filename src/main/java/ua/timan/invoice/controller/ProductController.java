@@ -12,12 +12,12 @@ import ua.timan.invoice.service.ProductService;
 
 @Controller
 public class ProductController {
-	
-	private static final String ROOF_PATH_P = "/products";
+
+	private static final String ROOT_PATH = "/products";
 	@Autowired
 	private ProductService productServise;
-	
-	@RequestMapping(ROOF_PATH_P)
+
+	@RequestMapping(ROOT_PATH)
 	@ResponseBody
 	public List<Product> getAll() {
 		return productServise.getAllProducts();

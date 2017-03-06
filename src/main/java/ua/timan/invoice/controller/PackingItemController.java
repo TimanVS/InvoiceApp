@@ -1,9 +1,12 @@
 package ua.timan.invoice.controller;
 
-import java.util.List;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,14 +16,25 @@ import ua.timan.invoice.service.PackingService;
 @Controller
 public class PackingItemController {
 
-	public static final String P_ITEM = "/p_items";
+	public static final String ROOT_PATH = "/packingItems";
 
 	@Autowired
-	private PackingService itemService;
+	private PackingService packingService;
 
-	@RequestMapping(P_ITEM)
+	@RequestMapping(value = ROOT_PATH, method = PUT)
 	@ResponseBody
-	public List<PackingItem> getAll() {
-		return itemService.getAllPackingItems();
+	public PackingItem updateItem(@RequestBody PackingItem item) {
+		return packingService.updatePackingItem(item);
+	}
+
+	@RequestMapping(value = ROOT_PATH + "/{id}", method = DELETE)
+	public void deleteItem(@PathVariable int id) {
+		packingService.deletePackingItem(id);
+	}
+
+	@RequestMapping(ROOT_PATH + "/{id}")
+	@ResponseBody
+	public PackingItem getItem(@PathVariable int id) {
+		return packingService.getPackingItem(id);
 	}
 }

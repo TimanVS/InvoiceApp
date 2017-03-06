@@ -13,21 +13,21 @@ import ua.timan.invoice.service.StaticService;
 
 @Controller
 public class ProviderController {
-	
+
 	public static final String ROOT_PATH = "/providers";
-	
+
 	@Autowired
 	private StaticService staticServise;
-	
+
 	@RequestMapping(ROOT_PATH)
 	@ResponseBody
 	public List<Provider> getAll() {
 		return staticServise.getAllProviders();
 	}
-	
+
 	@RequestMapping(ROOT_PATH + "/{id}")
 	@ResponseBody
-	public Provider getById(@PathVariable("id") int id){
+	public Provider getById(@PathVariable("id") int id) {
 		return staticServise.getProvider(id);
 	}
 
