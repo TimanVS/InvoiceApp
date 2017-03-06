@@ -21,7 +21,7 @@ public class ProductGroupController {
 	@Autowired
 	private ProductService groupService;
 
-	@RequestMapping
+	@RequestMapping(ROOT_PATH)
 	@ResponseBody
 	public List<ProductGroup> getAll() {
 		return groupService.getAllProductGroups();
