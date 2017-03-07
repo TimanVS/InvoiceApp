@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Proxy;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,15 +18,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Proxy(lazy = false)
 public class PackingItem implements IdAware {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @ManyToOne
-    private Product product;
-    private BigDecimal quantity;
-    private BigDecimal price;
-    private BigDecimal sum;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@ManyToOne
+	private Product product;
+	private BigDecimal quantity;
+	private BigDecimal price;
+	private BigDecimal sum;
 
 }
