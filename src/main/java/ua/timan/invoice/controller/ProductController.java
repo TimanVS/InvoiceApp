@@ -15,11 +15,11 @@ public class ProductController {
 
 	private static final String ROOT_PATH = "/products";
 	@Autowired
-	private ProductService productServise;
+	private ProductService productService;
 
 	@RequestMapping(ROOT_PATH)
 	@ResponseBody
 	public List<Product> getAll() {
-		return productServise.getAllProducts();
+		return productService.getAllProducts();
 	}
 }

@@ -21,7 +21,7 @@ import ua.timan.invoice.test.TestDataFactory;
 
 public class ProductServiceTest extends AbstractSpringTest {
 
-	public static final int EXISTEN_PRODUCT_ID = 5;
+	public static final int EXISTENT_PRODUCT_ID = 5;
 	public static final int DELETED_PRODUCT_ID = 6;
 	public static final int UNDELETABLE_ID = 3;
 	@Autowired
@@ -94,7 +94,7 @@ public class ProductServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldGetAndUpdateProduct() throws IOException {
-		Product product = productService.getProduct(EXISTEN_PRODUCT_ID);
+		Product product = productService.getProduct(EXISTENT_PRODUCT_ID);
 		product.setName("Минтай с/м Аргентина");
 		Product result = productService.updateProduct(product);
 
@@ -103,7 +103,7 @@ public class ProductServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldGetAndUpdateProductGroup() throws IOException {
-		ProductGroup group = productService.getProductGroup(EXISTEN_PRODUCT_ID);
+		ProductGroup group = productService.getProductGroup(EXISTENT_PRODUCT_ID);
 		group.setName("Химия");
 		ProductGroup result = productService.updateProductGroup(group);
 

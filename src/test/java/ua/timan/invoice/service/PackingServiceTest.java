@@ -1,6 +1,5 @@
 package ua.timan.invoice.service;
 
-import static java.time.LocalDate.of;
 import static java.time.LocalDate.now;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
@@ -33,7 +32,7 @@ import ua.timan.invoice.test.AbstractSpringTest;
 @Slf4j
 public class PackingServiceTest extends AbstractSpringTest {
 
-	public static final int EXISTEN_ID = 5;
+	public static final int EXISTENT_ID = 5;
 	public static final int DELETED_ID = 6;
 
 	@Autowired
@@ -52,7 +51,6 @@ public class PackingServiceTest extends AbstractSpringTest {
 	public void shouldCreatePackingList() throws IOException {
 		PackingList entity = createPackingList();
 		PackingList result = service.createPackingList(entity);
-		
 
 		entity.setId(result.getId());
 		assertEquals(entity, result);
@@ -122,7 +120,7 @@ public class PackingServiceTest extends AbstractSpringTest {
 	@Test
 	@Transactional
 	public void shouldGetAndUpdatePackingList() throws IOException {
-		PackingList pList = service.getPackingList(EXISTEN_ID);
+		PackingList pList = service.getPackingList(EXISTENT_ID);
 		pList.setProvider(new Provider(2, "Свиточ"));
 		pList.setIssueDate(now());
 		PackingList result = service.updatePackingList(pList);
@@ -130,10 +128,10 @@ public class PackingServiceTest extends AbstractSpringTest {
 		assertEquals(pList, result);
 		log.info(result.toString());
 	}
-	
+
 	@Test
 	public void shouldGetAndUpdatePackingItem() throws IOException {
-		PackingItem item = service.getPackingItem(EXISTEN_ID);
+		PackingItem item = service.getPackingItem(EXISTENT_ID);
 		item.setQuantity(BigDecimal.valueOf(8));
 		item.setSum(BigDecimal.valueOf(204));
 		PackingItem result = service.updatePackingItem(item);
@@ -141,15 +139,15 @@ public class PackingServiceTest extends AbstractSpringTest {
 		assertEquals(item, result);
 		log.info(result.toString());
 	}
-	
+
 	@Test
-	public void shouldCheckExistingPackingList(){
-		service.existsPackingList(EXISTEN_ID);
+	public void shouldCheckExistingPackingList() {
+		service.existsPackingList(EXISTENT_ID);
 	}
-	
+
 	@Test
-	public void shouldCheckExistingPackingItem(){
-		service.existsPackingItem(EXISTEN_ID);
+	public void shouldCheckExistingPackingItem() {
+		service.existsPackingItem(EXISTENT_ID);
 	}
 
 }
