@@ -46,12 +46,24 @@ public class PackingService {
 		return savePackingList(arg0);
 	}
 
-	public PackingItem createPackingItem(PackingItem arg0) {
+	private PackingItem createPackingItem(PackingItem arg0) {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null PackingList is expected!");
 		}
 		arg0.setId(DEFAULT_ID);
 		return savePackingItem(arg0);
+	}
+
+	@Transactional
+	public PackingItem addPackingItem(int id, PackingItem item) {
+		if (!listRepository.exists(id)) {
+			throw new IllegalArgumentException("Can't find PackingList with id " + id + "!");
+		}
+		PackingList list = listRepository.findOne(id);
+		PackingItem result = createPackingItem(item);
+		list.getItems().add(result);
+		savePackingList(list);
+		return result;
 	}
 
 	private PackingList savePackingList(PackingList arg0) {
@@ -89,10 +101,6 @@ public class PackingService {
 
 	public List<PackingList> getAllPackingLists() {
 		return toList(listRepository.findAll());
-	}
-
-	public List<PackingItem> getAllPackingItems() {
-		return toList(itemRepository.findAll());
 	}
 
 	@Transactional

@@ -36,7 +36,7 @@ public class PackingListController {
 	@ResponseBody
 	public PackingItem addItem(@PathVariable int id, @RequestBody PackingItem item) {
 		// TODO написать реализацию в сервисе
-		return null;
+		return packingService.addPackingItem(id, item);
 	}
 
 }

@@ -6,7 +6,6 @@ import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-import static ua.timan.invoice.test.TestDataFactory.createPackingItem;
 import static ua.timan.invoice.test.TestDataFactory.createPackingList;
 import static ua.timan.invoice.test.TestDataFactory.createPackingLists;
 
@@ -22,11 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import lombok.extern.slf4j.Slf4j;
 import ua.timan.invoice.domain.PackingItem;
 import ua.timan.invoice.domain.PackingList;
-import ua.timan.invoice.domain.Product;
-import ua.timan.invoice.domain.ProductGroup;
 import ua.timan.invoice.domain.Provider;
 import ua.timan.invoice.domain.Storage;
-import ua.timan.invoice.domain.enums.Measure;
 import ua.timan.invoice.test.AbstractSpringTest;
 
 @Slf4j
@@ -56,15 +52,6 @@ public class PackingServiceTest extends AbstractSpringTest {
 		assertEquals(entity, result);
 	}
 
-	@Test
-	public void shouldCreatePackingItem() throws IOException {
-		PackingItem entity = createPackingItem();
-		PackingItem result = service.createPackingItem(entity);
-
-		entity.setId(result.getId());
-		assertEquals(entity, result);
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldNotCreatePackingListWithNullValue() {
 		PackingList pList = null;
@@ -83,14 +70,6 @@ public class PackingServiceTest extends AbstractSpringTest {
 		PackingList pList = new PackingList();
 		pList.setStore(new Storage(20, "New storage"));
 		service.createPackingList(pList);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void shouldNotCreatePackingItemWithUnknownProduct() {
-		PackingItem item = new PackingItem();
-		ProductGroup group = new ProductGroup();
-		item.setProduct(new Product(20, "123456789", "New product", group, Measure.PIECE));
-		service.createPackingItem(item);
 	}
 
 	@Test
