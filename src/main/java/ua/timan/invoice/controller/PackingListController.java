@@ -1,6 +1,8 @@
 package ua.timan.invoice.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.util.List;
 
@@ -30,13 +32,34 @@ public class PackingListController {
 		return packingService.getAllPackingLists();
 	}
 
-	// TODO дописать методы для PackingList-а
+	@RequestMapping(ROOT_PATH + "/{id}")
+	@ResponseBody
+	public PackingList getById(@PathVariable("id") int id) {
+		return packingService.getPackingList(id);
+	}
+
+	@RequestMapping(value = ROOT_PATH + "/{id}", method = DELETE)
+	@ResponseBody
+	public void deleteById(@PathVariable("id") int id) {
+		packingService.deletePackingList(id);
+	}
+
+	@RequestMapping(value = ROOT_PATH, method = POST)
+	@ResponseBody
+	public PackingList add(@RequestBody PackingList plist) {
+		return packingService.createPackingList(plist);
+	}
 
 	@RequestMapping(value = ROOT_PATH + "/{id}" + ITEM_PATH, method = POST)
 	@ResponseBody
 	public PackingItem addItem(@PathVariable int id, @RequestBody PackingItem item) {
-		// TODO написать реализацию в сервисе
 		return packingService.addPackingItem(id, item);
+	}
+
+	@RequestMapping(value = ROOT_PATH, method = PUT)
+	@ResponseBody
+	public PackingList update(@RequestBody PackingList plist) {
+		return packingService.updatePackingList(plist);
 	}
 
 }
