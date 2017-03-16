@@ -2,6 +2,7 @@ package ua.timan.invoice.service;
 
 import static ua.timan.invoice.utils.InvoiceUtils.toList;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -47,7 +48,7 @@ public class PackingService {
 
 	private PackingItem createPackingItem(PackingItem arg0) {
 		if (arg0 == null) {
-			throw new IllegalArgumentException("Not null PackingList is expected!");
+			throw new IllegalArgumentException("Not null PackingItem is expected!");
 		}
 		arg0.setId(DEFAULT_ID);
 		return savePackingItem(arg0);
@@ -79,8 +80,8 @@ public class PackingService {
 		if (arg0.getProduct() == null || !productService.existsProduct(arg0.getProduct().getId())) {
 			throw new IllegalArgumentException("Not null product is expected or such product not exists!");
 		}
-		if (arg0.getQuantity() == null) {
-			throw new IllegalArgumentException("Not null quantity is expected!");
+		if (arg0.getQuantity() == null || arg0.getQuantity() == BigDecimal.valueOf(0)) {
+			throw new IllegalArgumentException("Not null quantity is expected! Enter the quantity!");
 		}
 		if (arg0.getPrice() == null) {
 			throw new IllegalArgumentException("Not null price is expected!");
@@ -103,6 +104,9 @@ public class PackingService {
 
 	@Transactional
 	public void deletePackingList(int id) {
+		if (!listRepository.exists(id)) {
+			throw new IllegalArgumentException("Can't find packing list with id " + id + "!");
+		}
 		PackingList entity = getPackingList(id);
 		List<PackingItem> items = entity.getItems();
 		for (PackingItem item : items) {
@@ -112,6 +116,9 @@ public class PackingService {
 	}
 
 	public void deletePackingItem(int id) {
+		if (!itemRepository.exists(id)) {
+			throw new IllegalArgumentException("Can't find item with id " + id + "!");
+		}
 		itemRepository.delete(id);
 	}
 

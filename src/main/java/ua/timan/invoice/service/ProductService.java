@@ -102,10 +102,16 @@ public class ProductService {
 	}
 
 	public void deleteProduct(int id) {
+		if (!productRepository.exists(id)) {
+			throw new IllegalArgumentException("Can't find product with id " + id + "!");
+		}
 		productRepository.delete(id);
 	}
 
 	public void deleteProductGroup(int id) {
+		if (!productGroupRepository.exists(id)) {
+			throw new IllegalArgumentException("Can't find product group with id " + id + "!");
+		}
 		Iterable<Product> products = productRepository.findByGroup(productGroupRepository.findOne(id));
 		if (products.iterator().hasNext()) {
 			throw new IllegalArgumentException(
