@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Proxy;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ import ua.timan.invoice.converters.LocalDateAttributeConverter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Proxy(lazy = false)
 public class PackingList implements IdAware {
 
 	@Id

@@ -16,7 +16,7 @@ import ua.timan.invoice.test.AbstractSpringTest;
 
 public class StaticServiceTest extends AbstractSpringTest {
 
-	public static final int EXISTEN_ID = 3;
+	public static final int EXISTENT_ID = 3;
 
 	@Autowired
 	private StaticService staticService;
@@ -35,24 +35,24 @@ public class StaticServiceTest extends AbstractSpringTest {
 
 	@Test
 	public void shouldGetStorage() {
-		Storage result = staticService.getStorage(EXISTEN_ID);
+		Storage result = staticService.getStorage(EXISTENT_ID);
 		assertNotNull(result);
 	}
 
 	@Test
 	public void shouldGetProvider() {
-		Provider result = staticService.getProvider(EXISTEN_ID);
+		Provider result = staticService.getProvider(EXISTENT_ID);
 		assertNotNull(result);
 	}
 	
 	@Test
 	public void shouldCheckExistingStorage(){
-		staticService.existsStorage(EXISTEN_ID);
+		staticService.existsStorage(EXISTENT_ID);
 	}
 	
 	@Test
 	public void shouldCheckExistingProvider(){
-		staticService.existsProvider(EXISTEN_ID);
+		staticService.existsProvider(EXISTENT_ID);
 	}
 
 }

@@ -1,7 +1,9 @@
 package ua.timan.invoice.service;
 
+import static org.springframework.util.CollectionUtils.isEmpty;
 import static ua.timan.invoice.utils.InvoiceUtils.toList;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -41,24 +43,46 @@ public class PackingService {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null PackingList is expected!");
 		}
+		createPackingItems(arg0.getItems());
 		arg0.setId(DEFAULT_ID);
 		return savePackingList(arg0);
 	}
 
-	public PackingItem createPackingItem(PackingItem arg0) {
+	private void createPackingItems(List<PackingItem> items) {
+		if (isEmpty(items)) {
+			return;
+		}
+		for (int i = 0; i < items.size(); i++) {
+			items.set(i, createPackingItem(items.get(i)));
+		}
+	}
+
+	private PackingItem createPackingItem(PackingItem arg0) {
 		if (arg0 == null) {
-			throw new IllegalArgumentException("Not null PackingList is expected!");
+			throw new IllegalArgumentException("Not null PackingItem is expected!");
 		}
 		arg0.setId(DEFAULT_ID);
 		return savePackingItem(arg0);
 	}
 
+	@Transactional
+	public PackingItem addPackingItem(int id, PackingItem item) {
+		if (!listRepository.exists(id)) {
+			throw new IllegalArgumentException("Can't find PackingList with id " + id + "!");
+		}
+		PackingList list = listRepository.findOne(id);
+		PackingItem result = createPackingItem(item);
+		list.getItems().add(result);
+		savePackingList(list);
+		return result;
+	}
+
 	private PackingList savePackingList(PackingList arg0) {
 		if (arg0.getProvider() == null || !staticService.existsProvider(arg0.getProvider().getId())) {
-			throw new IllegalArgumentException("No such provider!");
+			throw new IllegalArgumentException("The object 'Provider' is not found!!");
 		}
 		if (arg0.getStore() == null || !staticService.existsStorage(arg0.getStore().getId())) {
-			throw new IllegalArgumentException("No such storage!");
+			throw new IllegalArgumentException("The object 'Storage' is not found!");
 		}
 		return listRepository.save(arg0);
 	}
@@ -67,8 +91,8 @@ public class PackingService {
 		if (arg0.getProduct() == null || !productService.existsProduct(arg0.getProduct().getId())) {
 			throw new IllegalArgumentException("Not null product is expected or such product not exists!");
 		}
-		if (arg0.getQuantity() == null) {
-			throw new IllegalArgumentException("Not null quantity is expected!");
+		if (arg0.getQuantity() == null || arg0.getQuantity() == BigDecimal.valueOf(0)) {
+			throw new IllegalArgumentException("Not null quantity is expected! Enter the quantity!");
 		}
 		if (arg0.getPrice() == null) {
 			throw new IllegalArgumentException("Not null price is expected!");
@@ -89,12 +113,11 @@ public class PackingService {
 		return toList(listRepository.findAll());
 	}
 
-	public List<PackingItem> getAllPackingItems() {
-		return toList(itemRepository.findAll());
-	}
-
 	@Transactional
 	public void deletePackingList(int id) {
+		if (!listRepository.exists(id)) {
+			throw new IllegalArgumentException("Can't find packing list with id " + id + "!");
+		}
 		PackingList entity = getPackingList(id);
 		List<PackingItem> items = entity.getItems();
 		for (PackingItem item : items) {
@@ -104,6 +127,9 @@ public class PackingService {
 	}
 
 	public void deletePackingItem(int id) {
+		if (!itemRepository.exists(id)) {
+			throw new IllegalArgumentException("Can't find item with id " + id + "!");
+		}
 		itemRepository.delete(id);
 	}
 

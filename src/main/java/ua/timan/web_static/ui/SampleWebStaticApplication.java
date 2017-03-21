@@ -16,6 +16,7 @@
 
 package ua.timan.web_static.ui;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +99,7 @@ public class SampleWebStaticApplication extends SpringBootServletInitializer {
 		List<Module> modules = new ArrayList<Module>();
 		modules.add(new JSR310Module());
 		factory.setModules(modules);
+		factory.setDateFormat(new SimpleDateFormat("dd-mm-yyyy"));
 		return factory;
 	}
 
