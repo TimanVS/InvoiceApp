@@ -6,7 +6,6 @@ import static org.hamcrest.collection.IsEmptyIterable.emptyIterable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-import static ua.timan.invoice.test.TestDataFactory.createPackingList;
 import static ua.timan.invoice.test.TestDataFactory.createPackingLists;
 
 import java.io.IOException;
@@ -35,21 +34,16 @@ public class PackingServiceTest extends AbstractSpringTest {
 	private PackingService service;
 
 	@Test
+	@Transactional
 	public void shouldCreatePackingLists() throws IOException {
 		List<PackingList> register = createPackingLists();
 		for (PackingList pList : register) {
-			service.createPackingList(pList);
+			PackingList result = service.createPackingList(pList);
+			pList.setId(result.getId());
+
+			assertEquals(pList, result);
 		}
 
-	}
-
-	@Test
-	public void shouldCreatePackingList() throws IOException {
-		PackingList entity = createPackingList();
-		PackingList result = service.createPackingList(entity);
-
-		entity.setId(result.getId());
-		assertEquals(entity, result);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
