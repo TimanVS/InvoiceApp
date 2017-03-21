@@ -1,5 +1,6 @@
 package ua.timan.invoice.service;
 
+import static org.springframework.util.CollectionUtils.isEmpty;
 import static ua.timan.invoice.utils.InvoiceUtils.toList;
 
 import java.math.BigDecimal;
@@ -42,8 +43,18 @@ public class PackingService {
 		if (arg0 == null) {
 			throw new IllegalArgumentException("Not null PackingList is expected!");
 		}
+		createPackingItems(arg0.getItems());
 		arg0.setId(DEFAULT_ID);
 		return savePackingList(arg0);
+	}
+
+	private void createPackingItems(List<PackingItem> items) {
+		if (isEmpty(items)) {
+			return;
+		}
+		for (int i = 0; i < items.size(); i++) {
+			items.set(i, createPackingItem(items.get(i)));
+		}
 	}
 
 	private PackingItem createPackingItem(PackingItem arg0) {
